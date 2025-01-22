@@ -6,15 +6,14 @@ Discorbot-K線圖是一個專門為交易者設計的自動化工具。它可以
 ## 功能特色
 - 自動每小時提供即時資訊並提醒應進行交易。
 - 有 `/owo` 指令可呼叫機器人作用。
-- 提供 1H、4H的交易數據和盡一時間的漲幅榜。
+- 提供 1H、4H的交易數據和即時的漲幅榜。
 
 ## 安裝指南
 1. 自行新增 `.env` 檔案，包含下列內容：
-   - Bot的 Token
    - DISCORD_TOKEN
    - DISCORD_CLIENT_ID
    - DISCORD_GUILD_ID
-   - DISCORD_CHANNEL
+   - DISCORD_CHANNEL_ID
 2. 安裝先前申請 Bybit API，并將 API 密鑰充填進相關配置。
 3. 使用 Python 和 [Pybit](https://github.com/verata-veritatis/pybit) 套件。
 
