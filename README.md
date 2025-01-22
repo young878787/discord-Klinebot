@@ -16,7 +16,7 @@ Discordbot-K線圖是一個專門為交易者設計的自動化工具。它可�
    - DISCORD_CHANNEL_ID
 2. 安裝先前申請 Bybit API，并將 API 密鑰充填進相關配置。
 3. 使用 Python 和 [Pybit](https://github.com/verata-veritatis/pybit) 套件。
-
+4. 修改所有的路徑 改為目前本地的檔案夾 
 例：
 ```bash
 pip install pybit
