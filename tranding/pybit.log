@@ -1,0 +1,5 @@
+2024-12-13 14:01:10,589 DEBUG Initializing HTTP session.
+2024-12-13 14:01:10,596 DEBUG Starting new HTTPS connection (1): api-testnet.bybit.com:443
+2024-12-13 14:01:11,090 DEBUG https://api-testnet.bybit.com:443 "GET /v5/market/orderbook?category=linear&symbol=BTCUSDT HTTP/11" 200 None
+2024-12-13 14:01:11,196 DEBUG https://api-testnet.bybit.com:443 "GET /v5/account/wallet-balance?accountType=UNIFIED HTTP/11" 401 0
+2024-12-13 14:01:11,197 DEBUG Response text: 

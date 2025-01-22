@@ -1,0 +1,1352 @@
+[
+    {
+        "Symbol": "10000000AIDOGEUSDT"
+    },
+    {
+        "Symbol": "1000000BABYDOGEUSDT"
+    },
+    {
+        "Symbol": "1000000CHEEMSUSDT"
+    },
+    {
+        "Symbol": "1000000MOGUSDT"
+    },
+    {
+        "Symbol": "1000000PEIPEIUSDT"
+    },
+    {
+        "Symbol": "10000COQUSDT"
+    },
+    {
+        "Symbol": "10000LADYSUSDT"
+    },
+    {
+        "Symbol": "10000QUBICUSDT"
+    },
+    {
+        "Symbol": "10000SATSUSDT"
+    },
+    {
+        "Symbol": "10000WENUSDT"
+    },
+    {
+        "Symbol": "10000WHYUSDT"
+    },
+    {
+        "Symbol": "1000APUUSDT"
+    },
+    {
+        "Symbol": "1000BONKUSDT"
+    },
+    {
+        "Symbol": "1000BTTUSDT"
+    },
+    {
+        "Symbol": "1000CATSUSDT"
+    },
+    {
+        "Symbol": "1000CATUSDT"
+    },
+    {
+        "Symbol": "1000FLOKIUSDT"
+    },
+    {
+        "Symbol": "1000LUNCUSDT"
+    },
+    {
+        "Symbol": "1000MUMUUSDT"
+    },
+    {
+        "Symbol": "1000NEIROCTOUSDT"
+    },
+    {
+        "Symbol": "1000PEPEUSDT"
+    },
+    {
+        "Symbol": "1000RATSUSDT"
+    },
+    {
+        "Symbol": "1000TOSHIUSDT"
+    },
+    {
+        "Symbol": "1000TURBOUSDT"
+    },
+    {
+        "Symbol": "1000XECUSDT"
+    },
+    {
+        "Symbol": "1000XUSDT"
+    },
+    {
+        "Symbol": "1CATUSDT"
+    },
+    {
+        "Symbol": "1INCHUSDT"
+    },
+    {
+        "Symbol": "A8USDT"
+    },
+    {
+        "Symbol": "AAVEUSDT"
+    },
+    {
+        "Symbol": "ACEUSDT"
+    },
+    {
+        "Symbol": "ACHUSDT"
+    },
+    {
+        "Symbol": "ACTUSDT"
+    },
+    {
+        "Symbol": "ACXUSDT"
+    },
+    {
+        "Symbol": "ADAUSDT"
+    },
+    {
+        "Symbol": "AERGOUSDT"
+    },
+    {
+        "Symbol": "AEROUSDT"
+    },
+    {
+        "Symbol": "AEVOUSDT"
+    },
+    {
+        "Symbol": "AGIUSDT"
+    },
+    {
+        "Symbol": "AGLDUSDT"
+    },
+    {
+        "Symbol": "AIOZUSDT"
+    },
+    {
+        "Symbol": "AIUSDT"
+    },
+    {
+        "Symbol": "AIXBTUSDT"
+    },
+    {
+        "Symbol": "AKTUSDT"
+    },
+    {
+        "Symbol": "ALEOUSDT"
+    },
+    {
+        "Symbol": "ALGOUSDT"
+    },
+    {
+        "Symbol": "ALICEUSDT"
+    },
+    {
+        "Symbol": "ALPACAUSDT"
+    },
+    {
+        "Symbol": "ALPHAUSDT"
+    },
+    {
+        "Symbol": "ALTUSDT"
+    },
+    {
+        "Symbol": "AMBUSDT"
+    },
+    {
+        "Symbol": "ANKRUSDT"
+    },
+    {
+        "Symbol": "APEUSDT"
+    },
+    {
+        "Symbol": "API3USDT"
+    },
+    {
+        "Symbol": "APTUSDT"
+    },
+    {
+        "Symbol": "ARBUSDT"
+    },
+    {
+        "Symbol": "ARKMUSDT"
+    },
+    {
+        "Symbol": "ARKUSDT"
+    },
+    {
+        "Symbol": "ARPAUSDT"
+    },
+    {
+        "Symbol": "ARUSDT"
+    },
+    {
+        "Symbol": "ASTRUSDT"
+    },
+    {
+        "Symbol": "ATAUSDT"
+    },
+    {
+        "Symbol": "ATHUSDT"
+    },
+    {
+        "Symbol": "ATOMUSDT"
+    },
+    {
+        "Symbol": "AUCTIONUSDT"
+    },
+    {
+        "Symbol": "AUDIOUSDT"
+    },
+    {
+        "Symbol": "AVAILUSDT"
+    },
+    {
+        "Symbol": "AVAUSDT"
+    },
+    {
+        "Symbol": "AVAXUSDT"
+    },
+    {
+        "Symbol": "AXLUSDT"
+    },
+    {
+        "Symbol": "AXSUSDT"
+    },
+    {
+        "Symbol": "BADGERUSDT"
+    },
+    {
+        "Symbol": "BAKEUSDT"
+    },
+    {
+        "Symbol": "BALUSDT"
+    },
+    {
+        "Symbol": "BANANAUSDT"
+    },
+    {
+        "Symbol": "BANDUSDT"
+    },
+    {
+        "Symbol": "BANUSDT"
+    },
+    {
+        "Symbol": "BATUSDT"
+    },
+    {
+        "Symbol": "BBUSDT"
+    },
+    {
+        "Symbol": "BCHUSDT"
+    },
+    {
+        "Symbol": "BEAMUSDT"
+    },
+    {
+        "Symbol": "BELUSDT"
+    },
+    {
+        "Symbol": "BENDOGUSDT"
+    },
+    {
+        "Symbol": "BICOUSDT"
+    },
+    {
+        "Symbol": "BIGTIMEUSDT"
+    },
+    {
+        "Symbol": "BILLYUSDT"
+    },
+    {
+        "Symbol": "BLASTUSDT"
+    },
+    {
+        "Symbol": "BLUEUSDT"
+    },
+    {
+        "Symbol": "BLURUSDT"
+    },
+    {
+        "Symbol": "BNBUSDT"
+    },
+    {
+        "Symbol": "BNTUSDT"
+    },
+    {
+        "Symbol": "BNXUSDT"
+    },
+    {
+        "Symbol": "BOBAUSDT"
+    },
+    {
+        "Symbol": "BOMEUSDT"
+    },
+    {
+        "Symbol": "BRETTUSDT"
+    },
+    {
+        "Symbol": "BSVUSDT"
+    },
+    {
+        "Symbol": "BSWUSDT"
+    },
+    {
+        "Symbol": "BTCUSDT"
+    },
+    {
+        "Symbol": "C98USDT"
+    },
+    {
+        "Symbol": "CAKEUSDT"
+    },
+    {
+        "Symbol": "CARVUSDT"
+    },
+    {
+        "Symbol": "CATIUSDT"
+    },
+    {
+        "Symbol": "CELOUSDT"
+    },
+    {
+        "Symbol": "CELRUSDT"
+    },
+    {
+        "Symbol": "CETUSUSDT"
+    },
+    {
+        "Symbol": "CFXUSDT"
+    },
+    {
+        "Symbol": "CHESSUSDT"
+    },
+    {
+        "Symbol": "CHILLGUYUSDT"
+    },
+    {
+        "Symbol": "CHRUSDT"
+    },
+    {
+        "Symbol": "CHZUSDT"
+    },
+    {
+        "Symbol": "CKBUSDT"
+    },
+    {
+        "Symbol": "CLOUDUSDT"
+    },
+    {
+        "Symbol": "COMBOUSDT"
+    },
+    {
+        "Symbol": "COMPUSDT"
+    },
+    {
+        "Symbol": "COOKUSDT"
+    },
+    {
+        "Symbol": "COREUSDT"
+    },
+    {
+        "Symbol": "COSUSDT"
+    },
+    {
+        "Symbol": "COTIUSDT"
+    },
+    {
+        "Symbol": "COWUSDT"
+    },
+    {
+        "Symbol": "CROUSDT"
+    },
+    {
+        "Symbol": "CRVUSDT"
+    },
+    {
+        "Symbol": "CTCUSDT"
+    },
+    {
+        "Symbol": "CTKUSDT"
+    },
+    {
+        "Symbol": "CTSIUSDT"
+    },
+    {
+        "Symbol": "CVCUSDT"
+    },
+    {
+        "Symbol": "CVXUSDT"
+    },
+    {
+        "Symbol": "CYBERUSDT"
+    },
+    {
+        "Symbol": "DARUSDT"
+    },
+    {
+        "Symbol": "DASHUSDT"
+    },
+    {
+        "Symbol": "DATAUSDT"
+    },
+    {
+        "Symbol": "DBRUSDT"
+    },
+    {
+        "Symbol": "DEEPUSDT"
+    },
+    {
+        "Symbol": "DEGENUSDT"
+    },
+    {
+        "Symbol": "DENTUSDT"
+    },
+    {
+        "Symbol": "DEXEUSDT"
+    },
+    {
+        "Symbol": "DGBUSDT"
+    },
+    {
+        "Symbol": "DODOUSDT"
+    },
+    {
+        "Symbol": "DOGEUSDT"
+    },
+    {
+        "Symbol": "DOGSUSDT"
+    },
+    {
+        "Symbol": "DOGUSDT"
+    },
+    {
+        "Symbol": "DOP1USDT"
+    },
+    {
+        "Symbol": "DOTUSDT"
+    },
+    {
+        "Symbol": "DRIFTUSDT"
+    },
+    {
+        "Symbol": "DUSKUSDT"
+    },
+    {
+        "Symbol": "DYDXUSDT"
+    },
+    {
+        "Symbol": "DYMUSDT"
+    },
+    {
+        "Symbol": "EDUUSDT"
+    },
+    {
+        "Symbol": "EGLDUSDT"
+    },
+    {
+        "Symbol": "EIGENUSDT"
+    },
+    {
+        "Symbol": "ENAUSDT"
+    },
+    {
+        "Symbol": "ENJUSDT"
+    },
+    {
+        "Symbol": "ENSUSDT"
+    },
+    {
+        "Symbol": "EOSUSDT"
+    },
+    {
+        "Symbol": "ETCUSDT"
+    },
+    {
+        "Symbol": "ETHBTCUSDT"
+    },
+    {
+        "Symbol": "ETHFIUSDT"
+    },
+    {
+        "Symbol": "ETHUSDT"
+    },
+    {
+        "Symbol": "ETHWUSDT"
+    },
+    {
+        "Symbol": "FARTCOINUSDT"
+    },
+    {
+        "Symbol": "FBUSDT"
+    },
+    {
+        "Symbol": "FDUSDUSDT"
+    },
+    {
+        "Symbol": "FIDAUSDT"
+    },
+    {
+        "Symbol": "FILUSDT"
+    },
+    {
+        "Symbol": "FIOUSDT"
+    },
+    {
+        "Symbol": "FIREUSDT"
+    },
+    {
+        "Symbol": "FLMUSDT"
+    },
+    {
+        "Symbol": "FLOWUSDT"
+    },
+    {
+        "Symbol": "FLRUSDT"
+    },
+    {
+        "Symbol": "FLUXUSDT"
+    },
+    {
+        "Symbol": "FORTHUSDT"
+    },
+    {
+        "Symbol": "FOXYUSDT"
+    },
+    {
+        "Symbol": "FTMUSDT"
+    },
+    {
+        "Symbol": "FTNUSDT"
+    },
+    {
+        "Symbol": "FUSDT"
+    },
+    {
+        "Symbol": "FWOGUSDT"
+    },
+    {
+        "Symbol": "FXSUSDT"
+    },
+    {
+        "Symbol": "GALAUSDT"
+    },
+    {
+        "Symbol": "GASUSDT"
+    },
+    {
+        "Symbol": "GEMSUSDT"
+    },
+    {
+        "Symbol": "GIGAUSDT"
+    },
+    {
+        "Symbol": "GLMRUSDT"
+    },
+    {
+        "Symbol": "GLMUSDT"
+    },
+    {
+        "Symbol": "GMEUSDT"
+    },
+    {
+        "Symbol": "GMTUSDT"
+    },
+    {
+        "Symbol": "GMXUSDT"
+    },
+    {
+        "Symbol": "GNOUSDT"
+    },
+    {
+        "Symbol": "GOATUSDT"
+    },
+    {
+        "Symbol": "GODSUSDT"
+    },
+    {
+        "Symbol": "GOMININGUSDT"
+    },
+    {
+        "Symbol": "GRASSUSDT"
+    },
+    {
+        "Symbol": "GRIFFAINUSDT"
+    },
+    {
+        "Symbol": "GRTUSDT"
+    },
+    {
+        "Symbol": "GTCUSDT"
+    },
+    {
+        "Symbol": "GUSDT"
+    },
+    {
+        "Symbol": "HBARUSDT"
+    },
+    {
+        "Symbol": "HFTUSDT"
+    },
+    {
+        "Symbol": "HIFIUSDT"
+    },
+    {
+        "Symbol": "HIGHUSDT"
+    },
+    {
+        "Symbol": "HIPPOUSDT"
+    },
+    {
+        "Symbol": "HIVEUSDT"
+    },
+    {
+        "Symbol": "HMSTRUSDT"
+    },
+    {
+        "Symbol": "HNTUSDT"
+    },
+    {
+        "Symbol": "HOOKUSDT"
+    },
+    {
+        "Symbol": "HOTUSDT"
+    },
+    {
+        "Symbol": "HPOS10IUSDT"
+    },
+    {
+        "Symbol": "HYPEUSDT"
+    },
+    {
+        "Symbol": "ICPUSDT"
+    },
+    {
+        "Symbol": "ICXUSDT"
+    },
+    {
+        "Symbol": "IDEXUSDT"
+    },
+    {
+        "Symbol": "IDUSDT"
+    },
+    {
+        "Symbol": "ILVUSDT"
+    },
+    {
+        "Symbol": "IMXUSDT"
+    },
+    {
+        "Symbol": "INJUSDT"
+    },
+    {
+        "Symbol": "IOSTUSDT"
+    },
+    {
+        "Symbol": "IOTAUSDT"
+    },
+    {
+        "Symbol": "IOTXUSDT"
+    },
+    {
+        "Symbol": "IOUSDT"
+    },
+    {
+        "Symbol": "JASMYUSDT"
+    },
+    {
+        "Symbol": "JOEUSDT"
+    },
+    {
+        "Symbol": "JSTUSDT"
+    },
+    {
+        "Symbol": "JTOUSDT"
+    },
+    {
+        "Symbol": "JUPUSDT"
+    },
+    {
+        "Symbol": "KAIAUSDT"
+    },
+    {
+        "Symbol": "KASUSDT"
+    },
+    {
+        "Symbol": "KAVAUSDT"
+    },
+    {
+        "Symbol": "KDAUSDT"
+    },
+    {
+        "Symbol": "KEYUSDT"
+    },
+    {
+        "Symbol": "KMNOUSDT"
+    },
+    {
+        "Symbol": "KNCUSDT"
+    },
+    {
+        "Symbol": "KOMAUSDT"
+    },
+    {
+        "Symbol": "KSMUSDT"
+    },
+    {
+        "Symbol": "L3USDT"
+    },
+    {
+        "Symbol": "LAIUSDT"
+    },
+    {
+        "Symbol": "LDOUSDT"
+    },
+    {
+        "Symbol": "LEVERUSDT"
+    },
+    {
+        "Symbol": "LINAUSDT"
+    },
+    {
+        "Symbol": "LINKUSDT"
+    },
+    {
+        "Symbol": "LISTAUSDT"
+    },
+    {
+        "Symbol": "LITUSDT"
+    },
+    {
+        "Symbol": "LOOKSUSDT"
+    },
+    {
+        "Symbol": "LPTUSDT"
+    },
+    {
+        "Symbol": "LQTYUSDT"
+    },
+    {
+        "Symbol": "LRCUSDT"
+    },
+    {
+        "Symbol": "LSKUSDT"
+    },
+    {
+        "Symbol": "LTCUSDT"
+    },
+    {
+        "Symbol": "LTOUSDT"
+    },
+    {
+        "Symbol": "LUCEUSDT"
+    },
+    {
+        "Symbol": "LUMIAUSDT"
+    },
+    {
+        "Symbol": "LUNA2USDT"
+    },
+    {
+        "Symbol": "MAGICUSDT"
+    },
+    {
+        "Symbol": "MAJORUSDT"
+    },
+    {
+        "Symbol": "MANAUSDT"
+    },
+    {
+        "Symbol": "MANEKIUSDT"
+    },
+    {
+        "Symbol": "MANTAUSDT"
+    },
+    {
+        "Symbol": "MASAUSDT"
+    },
+    {
+        "Symbol": "MASKUSDT"
+    },
+    {
+        "Symbol": "MAVIAUSDT"
+    },
+    {
+        "Symbol": "MAVUSDT"
+    },
+    {
+        "Symbol": "MAXUSDT"
+    },
+    {
+        "Symbol": "MBLUSDT"
+    },
+    {
+        "Symbol": "MBOXUSDT"
+    },
+    {
+        "Symbol": "MDTUSDT"
+    },
+    {
+        "Symbol": "MEMEFIUSDT"
+    },
+    {
+        "Symbol": "MEMEUSDT"
+    },
+    {
+        "Symbol": "MERLUSDT"
+    },
+    {
+        "Symbol": "METISUSDT"
+    },
+    {
+        "Symbol": "MEUSDT"
+    },
+    {
+        "Symbol": "MEWUSDT"
+    },
+    {
+        "Symbol": "MINAUSDT"
+    },
+    {
+        "Symbol": "MKRUSDT"
+    },
+    {
+        "Symbol": "MNTUSDT"
+    },
+    {
+        "Symbol": "MOBILEUSDT"
+    },
+    {
+        "Symbol": "MOCAUSDT"
+    },
+    {
+        "Symbol": "MONUSDT"
+    },
+    {
+        "Symbol": "MOODENGUSDT"
+    },
+    {
+        "Symbol": "MORPHOUSDT"
+    },
+    {
+        "Symbol": "MOTHERUSDT"
+    },
+    {
+        "Symbol": "MOVEUSDT"
+    },
+    {
+        "Symbol": "MOVRUSDT"
+    },
+    {
+        "Symbol": "MTLUSDT"
+    },
+    {
+        "Symbol": "MVLUSDT"
+    },
+    {
+        "Symbol": "MYRIAUSDT"
+    },
+    {
+        "Symbol": "MYROUSDT"
+    },
+    {
+        "Symbol": "NEARUSDT"
+    },
+    {
+        "Symbol": "NEIROETHUSDT"
+    },
+    {
+        "Symbol": "NEOUSDT"
+    },
+    {
+        "Symbol": "NFPUSDT"
+    },
+    {
+        "Symbol": "NKNUSDT"
+    },
+    {
+        "Symbol": "NMRUSDT"
+    },
+    {
+        "Symbol": "NOTUSDT"
+    },
+    {
+        "Symbol": "NSUSDT"
+    },
+    {
+        "Symbol": "NTRNUSDT"
+    },
+    {
+        "Symbol": "NULSUSDT"
+    },
+    {
+        "Symbol": "NYANUSDT"
+    },
+    {
+        "Symbol": "OGNUSDT"
+    },
+    {
+        "Symbol": "OGUSDT"
+    },
+    {
+        "Symbol": "OLUSDT"
+    },
+    {
+        "Symbol": "OMGUSDT"
+    },
+    {
+        "Symbol": "OMNIUSDT"
+    },
+    {
+        "Symbol": "OMUSDT"
+    },
+    {
+        "Symbol": "ONDOUSDT"
+    },
+    {
+        "Symbol": "ONEUSDT"
+    },
+    {
+        "Symbol": "ONGUSDT"
+    },
+    {
+        "Symbol": "ONTUSDT"
+    },
+    {
+        "Symbol": "OPUSDT"
+    },
+    {
+        "Symbol": "ORBSUSDT"
+    },
+    {
+        "Symbol": "ORCAUSDT"
+    },
+    {
+        "Symbol": "ORDERUSDT"
+    },
+    {
+        "Symbol": "ORDIUSDT"
+    },
+    {
+        "Symbol": "OSMOUSDT"
+    },
+    {
+        "Symbol": "OXTUSDT"
+    },
+    {
+        "Symbol": "PAXGUSDT"
+    },
+    {
+        "Symbol": "PEAQUSDT"
+    },
+    {
+        "Symbol": "PENDLEUSDT"
+    },
+    {
+        "Symbol": "PENGUSDT"
+    },
+    {
+        "Symbol": "PENGUUSDT"
+    },
+    {
+        "Symbol": "PEOPLEUSDT"
+    },
+    {
+        "Symbol": "PERPUSDT"
+    },
+    {
+        "Symbol": "PHAUSDT"
+    },
+    {
+        "Symbol": "PHBUSDT"
+    },
+    {
+        "Symbol": "PIRATEUSDT"
+    },
+    {
+        "Symbol": "PIXELUSDT"
+    },
+    {
+        "Symbol": "PNUTUSDT"
+    },
+    {
+        "Symbol": "POLUSDT"
+    },
+    {
+        "Symbol": "POLYXUSDT"
+    },
+    {
+        "Symbol": "PONKEUSDT"
+    },
+    {
+        "Symbol": "POPCATUSDT"
+    },
+    {
+        "Symbol": "PORTALUSDT"
+    },
+    {
+        "Symbol": "POWRUSDT"
+    },
+    {
+        "Symbol": "PRCLUSDT"
+    },
+    {
+        "Symbol": "PRIMEUSDT"
+    },
+    {
+        "Symbol": "PROMUSDT"
+    },
+    {
+        "Symbol": "PROSUSDT"
+    },
+    {
+        "Symbol": "PUFFERUSDT"
+    },
+    {
+        "Symbol": "PYRUSDT"
+    },
+    {
+        "Symbol": "PYTHUSDT"
+    },
+    {
+        "Symbol": "QIUSDT"
+    },
+    {
+        "Symbol": "QNTUSDT"
+    },
+    {
+        "Symbol": "QTUMUSDT"
+    },
+    {
+        "Symbol": "QUICKUSDT"
+    },
+    {
+        "Symbol": "RADUSDT"
+    },
+    {
+        "Symbol": "RAREUSDT"
+    },
+    {
+        "Symbol": "RAYDIUMUSDT"
+    },
+    {
+        "Symbol": "RDNTUSDT"
+    },
+    {
+        "Symbol": "REEFUSDT"
+    },
+    {
+        "Symbol": "RENDERUSDT"
+    },
+    {
+        "Symbol": "RENUSDT"
+    },
+    {
+        "Symbol": "REQUSDT"
+    },
+    {
+        "Symbol": "REZUSDT"
+    },
+    {
+        "Symbol": "RIFSOLUSDT"
+    },
+    {
+        "Symbol": "RIFUSDT"
+    },
+    {
+        "Symbol": "RLCUSDT"
+    },
+    {
+        "Symbol": "RONUSDT"
+    },
+    {
+        "Symbol": "ROSEUSDT"
+    },
+    {
+        "Symbol": "RPLUSDT"
+    },
+    {
+        "Symbol": "RSRUSDT"
+    },
+    {
+        "Symbol": "RSS3USDT"
+    },
+    {
+        "Symbol": "RUNEUSDT"
+    },
+    {
+        "Symbol": "RVNUSDT"
+    },
+    {
+        "Symbol": "SAFEUSDT"
+    },
+    {
+        "Symbol": "SAGAUSDT"
+    },
+    {
+        "Symbol": "SANDUSDT"
+    },
+    {
+        "Symbol": "SCAUSDT"
+    },
+    {
+        "Symbol": "SCRTUSDT"
+    },
+    {
+        "Symbol": "SCRUSDT"
+    },
+    {
+        "Symbol": "SCUSDT"
+    },
+    {
+        "Symbol": "SDUSDT"
+    },
+    {
+        "Symbol": "SEIUSDT"
+    },
+    {
+        "Symbol": "SENDUSDT"
+    },
+    {
+        "Symbol": "SFPUSDT"
+    },
+    {
+        "Symbol": "SHIB1000USDT"
+    },
+    {
+        "Symbol": "SILLYUSDT"
+    },
+    {
+        "Symbol": "SKLUSDT"
+    },
+    {
+        "Symbol": "SLERFUSDT"
+    },
+    {
+        "Symbol": "SLFUSDT"
+    },
+    {
+        "Symbol": "SLPUSDT"
+    },
+    {
+        "Symbol": "SNTUSDT"
+    },
+    {
+        "Symbol": "SNXUSDT"
+    },
+    {
+        "Symbol": "SOLUSDT"
+    },
+    {
+        "Symbol": "SPECUSDT"
+    },
+    {
+        "Symbol": "SPELLUSDT"
+    },
+    {
+        "Symbol": "SPXUSDT"
+    },
+    {
+        "Symbol": "SSVUSDT"
+    },
+    {
+        "Symbol": "STEEMUSDT"
+    },
+    {
+        "Symbol": "STGUSDT"
+    },
+    {
+        "Symbol": "STMXUSDT"
+    },
+    {
+        "Symbol": "STORJUSDT"
+    },
+    {
+        "Symbol": "STPTUSDT"
+    },
+    {
+        "Symbol": "STRKUSDT"
+    },
+    {
+        "Symbol": "STXUSDT"
+    },
+    {
+        "Symbol": "SUIUSDT"
+    },
+    {
+        "Symbol": "SUNDOGUSDT"
+    },
+    {
+        "Symbol": "SUNUSDT"
+    },
+    {
+        "Symbol": "SUPERUSDT"
+    },
+    {
+        "Symbol": "SUSHIUSDT"
+    },
+    {
+        "Symbol": "SWEATUSDT"
+    },
+    {
+        "Symbol": "SWELLUSDT"
+    },
+    {
+        "Symbol": "SXPUSDT"
+    },
+    {
+        "Symbol": "SYNUSDT"
+    },
+    {
+        "Symbol": "SYSUSDT"
+    },
+    {
+        "Symbol": "TAIKOUSDT"
+    },
+    {
+        "Symbol": "TAIUSDT"
+    },
+    {
+        "Symbol": "TAOUSDT"
+    },
+    {
+        "Symbol": "THETAUSDT"
+    },
+    {
+        "Symbol": "THEUSDT"
+    },
+    {
+        "Symbol": "TIAUSDT"
+    },
+    {
+        "Symbol": "TLMUSDT"
+    },
+    {
+        "Symbol": "TNSRUSDT"
+    },
+    {
+        "Symbol": "TOKENUSDT"
+    },
+    {
+        "Symbol": "TONUSDT"
+    },
+    {
+        "Symbol": "TRBUSDT"
+    },
+    {
+        "Symbol": "TROYUSDT"
+    },
+    {
+        "Symbol": "TRUUSDT"
+    },
+    {
+        "Symbol": "TRXUSDT"
+    },
+    {
+        "Symbol": "TUSDT"
+    },
+    {
+        "Symbol": "TWTUSDT"
+    },
+    {
+        "Symbol": "UMAUSDT"
+    },
+    {
+        "Symbol": "UNIUSDT"
+    },
+    {
+        "Symbol": "UROUSDT"
+    },
+    {
+        "Symbol": "USDCUSDT"
+    },
+    {
+        "Symbol": "USDEUSDT"
+    },
+    {
+        "Symbol": "USTCUSDT"
+    },
+    {
+        "Symbol": "USUALUSDT"
+    },
+    {
+        "Symbol": "UXLINKUSDT"
+    },
+    {
+        "Symbol": "VANAUSDT"
+    },
+    {
+        "Symbol": "VANRYUSDT"
+    },
+    {
+        "Symbol": "VELODROMEUSDT"
+    },
+    {
+        "Symbol": "VELOUSDT"
+    },
+    {
+        "Symbol": "VETUSDT"
+    },
+    {
+        "Symbol": "VIDTUSDT"
+    },
+    {
+        "Symbol": "VIRTUALUSDT"
+    },
+    {
+        "Symbol": "VOXELUSDT"
+    },
+    {
+        "Symbol": "VRAUSDT"
+    },
+    {
+        "Symbol": "VTHOUSDT"
+    },
+    {
+        "Symbol": "WAVESUSDT"
+    },
+    {
+        "Symbol": "WAXPUSDT"
+    },
+    {
+        "Symbol": "WIFUSDT"
+    },
+    {
+        "Symbol": "WLDUSDT"
+    },
+    {
+        "Symbol": "WOOUSDT"
+    },
+    {
+        "Symbol": "WUSDT"
+    },
+    {
+        "Symbol": "XAIUSDT"
+    },
+    {
+        "Symbol": "XCHUSDT"
+    },
+    {
+        "Symbol": "XCNUSDT"
+    },
+    {
+        "Symbol": "XEMUSDT"
+    },
+    {
+        "Symbol": "XIONUSDT"
+    },
+    {
+        "Symbol": "XLMUSDT"
+    },
+    {
+        "Symbol": "XMRUSDT"
+    },
+    {
+        "Symbol": "XNOUSDT"
+    },
+    {
+        "Symbol": "XRDUSDT"
+    },
+    {
+        "Symbol": "XRPUSDT"
+    }
+]
