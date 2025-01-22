@@ -1,2 +1,48 @@
-# discord-Klinebot
-discord 自動發送K線圖或被動發送
+# Discorbot-K線圖 (使用 Bybit API 調用)
+
+## 介紹
+Discorbot-K線圖是一個專門為交易者設計的自動化工具。它可以24H連線獲取即時數據，提供分析和提醒交易機會，幫助您做出更優化的交易決策。
+
+## 功能特色
+- 自動每小時提供即時資訊並提醒應進行交易。
+- 有 `/owo` 指令可呼叫機器人作用。
+- 提供 1H、4H的交易數據和盡一時間的漲幅榜。
+
+## 安裝指南
+1. 自行新增 `.env` 檔案，包含下列內容：
+   - Bot的 Token
+   - DISCORD_TOKEN
+   - DISCORD_CLIENT_ID
+   - DISCORD_GUILD_ID
+   - DISCORD_CHANNEL
+2. 安裝先前申請 Bybit API，并將 API 密鑰充填進相關配置。
+3. 使用 Python 和 [Pybit](https://github.com/verata-veritatis/pybit) 套件。
+
+例：
+```bash
+pip install pybit
+```
+
+## 使用方法
+1. 啟動 Bot：確保配置檔無誤後執行。
+2. 使用 `/owo` 指令和其他功能互動。
+3. 每小時正常提供資訊，始終保持連線狀態。
+
+## 技術細節
+- 使用部分 AI 寫成 (60%)，其他由我設計和除錯。
+- 主要套件：Pybit。
+- 歡迎其他開發者提供優化或技術指導，我很希望了解更多。
+
+## 貢獻說明
+如果使用我的 Bot 賺錢，可以加入 Discord 和我分享經驗，我也想學習！
+
+## 聯絡方式
+- [Discord](https://discord.gg/UxwTqpvepr)
+- IG: `young20160124`
+
+## 其他資訊
+- 我是學生，如有問題，歡迎反應給我，我會確保修正。
+- Bot 會根據您的意見一直作出修改，感謝您的支持！
+- 順帶一提 這是用chatgpt寫的readme 我文案懶得寫xd
+- 目前bot 處在有空就修改的情況 使用狀況可能不太好 
+
