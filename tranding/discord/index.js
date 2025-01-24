@@ -3,7 +3,7 @@ const { exec } = require('child_process');
 const path = require('path');
 const fs = require('fs');
 const { promisify } = require('util');
-const { Client, GatewayIntentBits, REST, Routes, SlashCommandBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder,Events } = require('discord.js');
+const { Client, GatewayIntentBits, REST, Routes, SlashCommandBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder,Events,StringSelectMenuBuilder } = require('discord.js');
 //const { token, clientId, guildId } = require('./config.json'); // 確保你有一個 config.json 文件，其中包含你的 Discord 機器人 token, clientId 和 guildId
 require('dotenv').config({ path: './token and something.env' });
 
@@ -41,7 +41,7 @@ client.once(Events.ClientReady, async c => {
         setInterval(async() => {
             await channel.send('@everyone 早安 該賺錢了 yoyo');
             await executeAndSendImage(channel);
-        }, 86400000); // 每3600000毫秒（1小時）執行一次
+        }, 86400000); // 每86400000毫秒（24小時）執行一次
     }
 });
 
@@ -61,6 +61,28 @@ client.on(Events.MessageCreate, message => {
 // 定義斜杠命令
 const commands = [
     //new SlashCommandBuilder().setName('button').setDescription('Replies with a button!'),
+    new SlashCommandBuilder()
+        .setName('搜尋')
+        .setDescription('搜尋幣種')
+        .addStringOption(option => 
+            option.setName('coin')
+                .setDescription('要搜尋的幣種')
+                .setRequired(true)
+                .setAutocomplete(true) // 啟用自動完成
+        )
+        .addStringOption(option => 
+            option.setName('time')
+                .setDescription('時間範圍')
+                .setRequired(false)
+                .addChoices(
+                    { name: '1m', value: '1m' },
+                    { name: '5m', value: '5m' },
+                    { name: '15m', value: '15m' },
+                    { name: '1h', value: '1h' },
+                    { name: '4h', value: '4h' },
+                    { name: '1d', value: '1d' }
+                )
+        ),
     new SlashCommandBuilder().setName('owo').setDescription('按鈕列表'),
     new SlashCommandBuilder().setName('ping').setDescription('Replies with Pong!'),
 ]
@@ -89,12 +111,55 @@ client.once('ready', () => {
     console.log(`Ready! Logged in as ${client.user.tag}`);
 });
 
+// 監聽自動完成請求
+client.on('interactionCreate', async interaction => {
+    if (!interaction.isAutocomplete()) return;
+
+    const focusedOption = interaction.options.getFocused(true);
+
+    if (focusedOption.name === 'coin') {
+        const alltradePath = 'C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\github\\pybit-5.7.0\\examples\\alltrade.json';
+        const alltrade = JSON.parse(fs.readFileSync(alltradePath, 'utf-8'));
+
+        const choices = alltrade.map(trade => trade.Symbol);
+        const filtered = choices.filter(choice => choice.toLowerCase().includes(focusedOption.value.toLowerCase()));
+
+        await interaction.respond(
+            filtered.slice(0, 25).map(choice => ({ name: choice, value: choice })),
+        );
+    } else if (focusedOption.name === 'time') {
+        const choices = ['1m', '5m', '15m', '1h', '4h', '1d'];
+        const filtered = choices.filter(choice => choice.startsWith(focusedOption.value));
+        await interaction.respond(
+            filtered.map(choice => ({ name: choice, value: choice }))
+        );
+    }
+});
+
 // 監聽斜杠命令
 client.on('interactionCreate', async interaction => {
     const channel = client.channels.cache.get(channelId); // 替換為你的頻道 ID
     if (!interaction.isCommand()) return;
 
-    const { commandName } = interaction;
+    const { commandName,options } = interaction;
+
+    if (commandName === '搜尋') {
+        const searchText = options.getString('coin');
+        const timeRange = options.getString('time');
+        // 讀取 alltrade.json 文件
+        const alltradePath = 'C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\github\\pybit-5.7.0\\examples\\alltrade.json';
+        const alltrade = JSON.parse(fs.readFileSync(alltradePath, 'utf-8'));
+
+        // 搜尋符合條件的 Symbol
+        const results = alltrade.filter(trade => trade.Symbol.includes(searchText)).map(trade => trade.Symbol);
+
+        // 保存用戶選擇到 userchose.txt
+        const userChoice = `symbol=${searchText} \n time=${timeRange || '未指定'}\n`;
+        fs.appendFileSync('userchose.txt', userChoice);
+
+        // 發送結果到 Discord 頻道
+
+    } 
 
     if (commandName === 'owo') {
         //1h
@@ -113,8 +178,7 @@ client.on('interactionCreate', async interaction => {
             .setLabel('漲幅榜')
             .setStyle(ButtonStyle.Primary);
 
-
-        const row = new ActionRowBuilder().addComponents(onehour, fourhour, highline);
+        const row = new ActionRowBuilder().addComponents(onehour, fourhour, highline );
 
         
         await interaction.reply({
@@ -129,27 +193,32 @@ client.on('interactionCreate', async interaction => {
 
 // 監聽按鈕互動事件
 client.on('interactionCreate', async interaction => {
+
+    const channel = client.channels.cache.get(channelId); // 替換為你的頻道 ID
+
+
     if (!interaction.isButton()) return;
 
     await interaction.deferReply({ ephemeral: true }); // 延遲回應，以避免錯誤
 
     if (interaction.customId === 'primary_1hour') {
         setTimeout(async () => {
-            await interaction.followUp({ content: '1小時K線圖加載dayo', ephemeral: true });
-            await executeHourlyTask(channelId);
+            await interaction.followUp({ content: '1小時K線圖加載中dayo', ephemeral: true });
+            await executeHourlyTask(channel);
         }, 10000);
     } else if (interaction.customId === 'primary_4hour') {
         setTimeout(async () => {
-            await interaction.followUp({ content: '4小時K線圖加載dayo', ephemeral: true });
-            await executeHourlyTask(channelId);
+            await interaction.followUp({ content: '4小時K線圖加載中dayo', ephemeral: true });
+            await executeHourlyTask(channel);
         }, 10000);
     } else if (interaction.customId === 'primary_highline') {
         setTimeout(async () => {
-            await interaction.followUp({ content: '漲幅榜加載dayo', ephemeral: true });
-            await executeAndSendImage(channelId);
+            await interaction.followUp({ content: '漲幅榜加載中dayo', ephemeral: true });
+            await executeAndSendImage(channel);
         }, 10000);
-    }
+    } 
 });
+
 // Log in to Discord with your client's token
 client.login(token);
 //膜塊區
