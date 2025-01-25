@@ -16,6 +16,26 @@ BYBIT_API_KEY = os.getenv("BYBIT_API_KEY")
 BYBIT_API_SECRET = os.getenv("BYBIT_API_SECRET")
 TESTNET = False  # True 表示使用測試網
 
+# 讀取文件
+def get_user_choice(filepath):
+    with open(filepath, 'r',encoding='utf-8') as file:
+        lines = file.readlines()
+        symbol = str(lines[0].split('=')[1].strip())
+        interval = lines[1].split('=')[1].strip()
+        if interval =="未指定":interval = "5m"
+        times = interval
+        if interval =="1m":interval = 1
+        elif interval =="5m":interval = 5
+        elif interval =="15m":interval = 15
+        elif interval =="30m":interval = 30
+        elif interval =="1h":interval = 60
+        elif interval =="4h":interval = 240
+    return symbol, interval,times
+
+# 測試讀取 userchose.txt 文件
+user_choice_file = 'C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\discord\\userchose.txt'
+symbol, interval ,times= get_user_choice(user_choice_file)
+
 class BybitKlineWrapper:
     def __init__(self, api_key: str = None, api_secret: str = None, testnet: bool = None):
         self.session = HTTP(
@@ -24,7 +44,7 @@ class BybitKlineWrapper:
             testnet=testnet,
         )
 
-    def get_kline_data(self, symbol: str = "BTCUSDT", interval: str = "60", limit: int = 20, timestamp: int = None):
+    def get_kline_data(self, symbol: str = "BTCUSDT", interval: str = "240", limit: int = 20, timestamp: int = None):
         if timestamp is None:
             timestamp = int(time.time() * 1000)
 
@@ -75,24 +95,31 @@ class BybitKlineWrapper:
 
         fig, ax = plt.subplots(figsize=(10, 5))
 
+        # 設置 K 線圖的寬度
+        if interval == 1: width=0.0005
+        elif interval == 5: width=0.002
+        elif interval == 15: width=0.005
+        elif interval == 30: width=0.01
+        elif interval == 60: width=0.02
+        elif interval == 240: width=0.1
         # 繪製 K 線圖，調整 width 參數以增加 K 線的寬度
-        candlestick_ohlc(ax, df[['timestamp', 'open', 'high', 'low', 'close']].values, width=0.02, colorup='g', colordown='r')
+        candlestick_ohlc(ax, df[['timestamp', 'open', 'high', 'low', 'close']].values, width, colorup='g', colordown='r')
 
         ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M'))
         plt.xticks(rotation=45)
-        plt.title('BTC K Line Chart 1H')
+        plt.title(f"{symbol}/{times} Kline")
         plt.xlabel('Time')
         plt.ylabel('Price')
         plt.grid()
         plt.tight_layout()
         
         # 添加浮水印
-        plt.text(0.5, 0.5, f'BTCUSDT/1H', fontsize=70, color='gray', alpha=0.25,
+        plt.text(0.5, 0.5, f'{symbol}/{times}', fontsize=70, color='gray', alpha=0.25,
                  ha='center', va='center', transform=ax.transAxes, rotation=0)
 
 
         # 儲存 K 線圖到 K highline 資料夾
-        plt.savefig("C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\discord\\K line\\Klinetest.png")  # 保存為 PNG 檔案
+        plt.savefig("C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\discord\\user\\chose.png")  # 保存為 PNG 檔案
         plt.close()  # 關閉圖表以釋放記憶體
         #plt.show()
 # 使用範例
@@ -103,4 +130,4 @@ wrapper = BybitKlineWrapper(
 )
 
 # 獲取 BTCUSDT 的 K 線數據，20根 K 線，60分間隔
-wrapper.get_kline_data(symbol="BTCUSDT", interval="60", limit=200)
+wrapper.get_kline_data(symbol, interval, limit=200)

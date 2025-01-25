@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const { promisify } = require('util');
 const { Client, GatewayIntentBits, REST, Routes, SlashCommandBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder,Events,StringSelectMenuBuilder } = require('discord.js');
+const schedule = require('node-schedule');
 //const { token, clientId, guildId } = require('./config.json'); // 確保你有一個 config.json 文件，其中包含你的 Discord 機器人 token, clientId 和 guildId
 require('dotenv').config({ path: './token and something.env' });
 
@@ -38,10 +39,11 @@ client.once(Events.ClientReady, async c => {
             await executeHourlyTask(channel);
         }, 3600000); // 每3600000毫秒（1小時）執行一次
 
-        setInterval(async() => {
+        // 每天早上8點執行
+        schedule.scheduleJob('0 8 * * *', async () => {
             await channel.send('@everyone 早安 該賺錢了 yoyo');
             await executeAndSendImage(channel);
-        }, 86400000); // 每86400000毫秒（24小時）執行一次
+        });
     }
 });
 
@@ -72,7 +74,7 @@ const commands = [
         )
         .addStringOption(option => 
             option.setName('time')
-                .setDescription('時間範圍')
+                .setDescription('時間級別')
                 .setRequired(false)
                 .addChoices(
                     { name: '1m', value: '1m' },
@@ -84,6 +86,7 @@ const commands = [
                 )
         ),
     new SlashCommandBuilder().setName('owo').setDescription('按鈕列表'),
+    new SlashCommandBuilder().setName('調教列表').setDescription('目前所有指令'),
     new SlashCommandBuilder().setName('ping').setDescription('Replies with Pong!'),
 ]
     .map(command => command.toJSON());
@@ -144,6 +147,7 @@ client.on('interactionCreate', async interaction => {
     const { commandName,options } = interaction;
 
     if (commandName === '搜尋') {
+        
         const searchText = options.getString('coin');
         const timeRange = options.getString('time');
         // 讀取 alltrade.json 文件
@@ -154,38 +158,24 @@ client.on('interactionCreate', async interaction => {
         const results = alltrade.filter(trade => trade.Symbol.includes(searchText)).map(trade => trade.Symbol);
 
         // 保存用戶選擇到 userchose.txt
-        const userChoice = `symbol=${searchText} \n time=${timeRange || '未指定'}\n`;
-        fs.appendFileSync('userchose.txt', userChoice);
+        const userChoice = `symbol=${searchText} \ntime=${timeRange || '未指定'}\n`;
+        fs.writeFileSync('userchose.txt', userChoice);
 
         // 發送結果到 Discord 頻道
+        await interaction.deferReply({ ephemeral: true }); // 延遲回應，以避免錯誤
 
+        setTimeout(async () => {
+            await interaction.followUp({ content: 'K線圖加載中dayo', ephemeral: true });
+            await executechose(channel);
+        }, 1000);
     } 
 
+    if (commandName === '調教列表') {
+        await interaction.reply('目前有以下指令: \n/搜尋 可尋找需要幣種 \n/owo 呼叫按鈕區塊 \n/ping');
+        }
+
     if (commandName === 'owo') {
-        //1h
-        const onehour = new ButtonBuilder()
-            .setCustomId('primary_1hour')
-            .setLabel('1H')
-            .setStyle(ButtonStyle.Primary);
-        //4h
-        const fourhour = new ButtonBuilder()
-            .setCustomId('primary_4hour')
-            .setLabel('4H')
-            .setStyle(ButtonStyle.Primary);
-        //漲符榜
-        const highline = new ButtonBuilder()
-            .setCustomId('primary_highline')
-            .setLabel('漲幅榜')
-            .setStyle(ButtonStyle.Primary);
-
-        const row = new ActionRowBuilder().addComponents(onehour, fourhour, highline );
-
-        
-        await interaction.reply({
-            content: '提供所有的時區',
-            ephemeral: true,
-            components: [row],
-        });
+        await executeButtonTask(interaction);
     } else if (commandName === 'ping') {
         await interaction.reply('Pong!');
     }
@@ -200,28 +190,115 @@ client.on('interactionCreate', async interaction => {
     if (!interaction.isButton()) return;
 
     await interaction.deferReply({ ephemeral: true }); // 延遲回應，以避免錯誤
+    //主按鈕區塊
 
     if (interaction.customId === 'primary_1hour') {
         setTimeout(async () => {
             await interaction.followUp({ content: '1小時K線圖加載中dayo', ephemeral: true });
             await executeHourlyTask(channel);
-        }, 10000);
+        }, 1000);
     } else if (interaction.customId === 'primary_4hour') {
         setTimeout(async () => {
             await interaction.followUp({ content: '4小時K線圖加載中dayo', ephemeral: true });
-            await executeHourlyTask(channel);
-        }, 10000);
+            await execute4HourlyTask(channel);
+        }, 1000);
     } else if (interaction.customId === 'primary_highline') {
         setTimeout(async () => {
             await interaction.followUp({ content: '漲幅榜加載中dayo', ephemeral: true });
             await executeAndSendImage(channel);
         }, 10000);
-    } 
+    } else if (interaction.customId.startsWith('chose_')) {
+        setTimeout(async () => {
+            await interaction.followUp({ content: `${interaction.customId.split('_')[1]} K線圖加載中dayo`, ephemeral: true });
+            await executechose(channel, interaction); // 傳遞 interaction 參數
+        }, 1000);
+    }else {
+        await executechose(interaction); // 傳遞 interaction 參數
+    }
 });
 
 // Log in to Discord with your client's token
 client.login(token);
 //膜塊區
+    //按鈕區塊
+async function executeButtonTask(interaction) {
+    try{
+    //1h
+    const onehour = new ButtonBuilder()
+    .setCustomId('primary_1hour')
+    .setLabel('1H')
+    .setStyle(ButtonStyle.Primary);
+    //4h
+    const fourhour = new ButtonBuilder()
+        .setCustomId('primary_4hour')
+        .setLabel('4H')
+        .setStyle(ButtonStyle.Primary);
+    //漲符榜
+    const highline = new ButtonBuilder()
+        .setCustomId('primary_highline')
+        .setLabel('漲幅榜')
+        .setStyle(ButtonStyle.Primary);
+
+    const row = new ActionRowBuilder().addComponents(onehour, fourhour, highline );
+
+
+    await interaction.reply({
+        content: '提供所有的時區',
+        ephemeral: true,
+        components: [row],
+    });
+    } catch (error) {
+        console.error(`exec error: ${error}`);
+    }
+}
+
+    //額外時間區塊
+async function executechosetime(interaction) {
+    try{
+    //1m
+    const oneminute = new ButtonBuilder()
+    .setCustomId('chose_1minute')
+    .setLabel('1M')
+    .setStyle(ButtonStyle.Primary);
+    //5m
+    const fiveminute = new ButtonBuilder()
+        .setCustomId('chose_5minute')
+        .setLabel('5M')
+        .setStyle(ButtonStyle.Primary);
+    //15m
+    const fifteenminute = new ButtonBuilder()
+        .setCustomId('chose_15minute')
+        .setLabel('15M')
+        .setStyle(ButtonStyle.Primary);
+    //30m
+    const thirtyminute = new ButtonBuilder()
+        .setCustomId('chose_30minute')
+        .setLabel('30M')
+        .setStyle(ButtonStyle.Primary);
+    //1h
+    const onehour = new ButtonBuilder()
+        .setCustomId('chose_1hour')
+        .setLabel('1H')
+        .setStyle(ButtonStyle.Primary);
+    //4h
+    const fourhour = new ButtonBuilder()
+        .setCustomId('chose_4hour')
+        .setLabel('4H')
+        .setStyle(ButtonStyle.Primary);
+
+    const row = new ActionRowBuilder().addComponents(oneminute, fiveminute, fifteenminute, thirtyminute, onehour, fourhour);
+    
+    await interaction.reply({
+        content: '提供所有的時區',
+        ephemeral: true,
+        components: [row],
+    });
+    
+    } catch (error) {
+        console.error(`exec error: ${error}`);
+    }
+}
+
     //漲幅榜
 async function executeAndSendImage(channel) {
     try {
@@ -248,7 +325,7 @@ async function executeAndSendImage(channel) {
                 console.error(`圖片不存在: ${imagePath}`);
             }
         }
-        await channel.send('需要什麼再/owo 一下dayo');
+        await channel.send('需要什麼再按一下或/調教列表dayo');
     } catch (error) {
         console.error(`exec error: ${error}`);
     }
@@ -278,7 +355,7 @@ async function executeHourlyTask(channel) {
             } catch (err) {
                 console.error(`圖片不存在: ${EthimagePath}`);
             }
-            await channel.send('需要什麼再/owo一下dayo');
+            await channel.send('需要什麼再按一下或/調教列表dayo');
     } catch (error) {
         console.error(`exec error: ${error}`);
     }
@@ -309,9 +386,29 @@ async function execute4HourlyTask(channel) {
             } catch (err) {
                 console.error(`圖片不存在: ${EthimagePath}`);
             }
-            await channel.send('需要什麼再/owo一下dayo');
+            await channel.send('需要什麼再按一下或/調教列表dayo');
     } catch (error) {
         console.error(`exec error: ${error}`);
     }
     
+}
+//指定K線圖
+async function executechose(channel, interaction) {
+    try {
+        const { stdout } = await execPromise('python "C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\github\\pybit-5.7.0\\examples\\choseKline.py"');
+        // 發送輸出結果到 Discord 頻道
+        await channel.send(`呼叫的K線圖呈上:dayo`);
+            const imagePath = path.join('C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\discord\\user', `chose.png`);
+            try {
+                await fs.promises.access(imagePath, fs.constants.F_OK);
+                await channel.send({ files: [imagePath] });
+                console.log(`圖片已發送: ${imagePath}`);
+            } catch (err) {
+                console.error(`圖片不存在: ${imagePath}`);
+            }
+            await channel.send('需要什麼再按一下或/調教列表dayo');
+            await executechosetime(interaction);
+        } catch (error) {
+            console.error(`exec error: ${error}`);
+        }
 }

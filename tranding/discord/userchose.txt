@@ -1,2 +1,2 @@
-symbol=1000000CHEEMSUSDT 
-time=5m
+symbol=ORDIUSDT 
+time=15m

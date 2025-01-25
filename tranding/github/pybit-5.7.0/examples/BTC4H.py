@@ -102,4 +102,7 @@ wrapper = BybitKlineWrapper(
 )
 
 # 獲取 BTCUSDT 的 K 線數據，20根 K 線，60分間隔
-wrapper.get_kline_data(symbol="BTCUSDT", interval="240", limit=100)
+wrapper.get_kline_data(symbol="BTCUSDT", interval="60", limit=100)
+
+
+
