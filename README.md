@@ -12,8 +12,9 @@ Discordbot-K線圖是一個專門為交易者設計的自動化工具。它可�
 
 ## 功能特色
 - 自動每小時提供即時資訊並提醒應進行交易。
-- ![image](https://github.com/user-attachments/assets/636c4755-4f5f-4511-9b64-78226aa90c0d)
+-<img src="https://github.com/user-attachments/assets/636c4755-4f5f-4511-9b64-78226aa90c0d" width="100" />
 - 有 `/owo`  指令可呼叫機器人特別按鈕。
+- <img src="https://github.com/user-attachments/assets/20c1477c-bb83-4806-8918-b20a890b877b" width="100" />
 - 有 `/搜尋 幣別[ ] 時間級別[ ]`  指令可呼叫機器人查詢已有幣種和他的時間級別。
 - 提供 1M 5M 15M 30M 1H、4H的交易數據和即時的漲幅榜。
 ## 安裝指南
