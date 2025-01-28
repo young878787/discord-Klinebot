@@ -1,6 +1,8 @@
 # Discordbot-K線圖 (使用 Bybit API 調用)
 
 ## 更新
+2025/1/25 beta 0.2 完善了搜尋功能 但想要新增按鈕補充更多時間 debug快2小好累先放棄 
+
 2025/1/24 beta 0.1 嘗試加入指令搜尋結果只做到建資料庫還沒連結運算K線圖功能 並debug和學習一點東西 
 
 ## 介紹
@@ -19,7 +21,7 @@ Discordbot-K線圖是一個專門為交易者設計的自動化工具。它可�
    - DISCORD_CHANNEL_ID
 2. 安裝先前申請 Bybit API，并將 API 密鑰充填進相關配置。
 3. 使用 Python 和 [Pybit](https://github.com/verata-veritatis/pybit) 套件。
-4. 修改所有的路徑 改為目前本地的檔案夾 
+4. 修改所有的路徑 改為目前本地的檔案夾設定值 
 例：
 ```bash
 pip install pybit
