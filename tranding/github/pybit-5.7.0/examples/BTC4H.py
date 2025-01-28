@@ -76,7 +76,7 @@ class BybitKlineWrapper:
         fig, ax = plt.subplots(figsize=(10, 5))
 
         # 繪製 K 線圖，調整 width 參數以增加 K 線的寬度
-        candlestick_ohlc(ax, df[['timestamp', 'open', 'high', 'low', 'close']].values, width=0.1, colorup='g', colordown='r')
+        candlestick_ohlc(ax, df[['timestamp', 'open', 'high', 'low', 'close']].values, width=0.02, colorup='g', colordown='r')
 
         ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M'))
         plt.xticks(rotation=45)
@@ -94,6 +94,7 @@ class BybitKlineWrapper:
         # 儲存 K 線圖到 K highline 資料夾
         plt.savefig("C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\discord\\K4line\\Klinetest.png")  # 保存為 PNG 檔案
         plt.close()  # 關閉圖表以釋放記憶體
+        #plt.show()
 # 使用範例
 wrapper = BybitKlineWrapper(
     api_key=BYBIT_API_KEY,
