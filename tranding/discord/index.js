@@ -7,10 +7,10 @@ const schedule = require('node-schedule');
 require('dotenv').config({ path: './token and something.env' });
 
 // 從環境變數中讀取值
-const token = process.env.DISCORD_TOKEN;
-const clientId = process.env.DISCORD_CLIENT_ID;
-const guildId = process.env.DISCORD_GUILD_ID;
-const channelId = process.env.DISCORD_CHANNEL_ID;
+const token = process.env.DISCORD_TOKEN;//token
+const clientId = process.env.DISCORD_CLIENT_ID;// Application id
+const guildId = process.env.DISCORD_GUILD_ID;//伺服器id
+const channelId = process.env.DISCORD_CHANNEL_ID;//頻道id
 
 const execPromise = promisify(exec);
 
@@ -26,10 +26,10 @@ client.once(Events.ClientReady, async c => {
         await channel.send('老婆醬準備上班dayo！');
 
         // 立即執行一次功能
-        await executeHourlyTask(channel);
+        await executeHourlyTask(true,null);
         channel.send('等下 還有24H漲幅榜dayo');
 
-        await executeAndSendImage(channel)
+        //await executeAndSendImage(channel)
 
         // 設置定時器每小時執行一次功能
         setInterval(async() => {
@@ -155,7 +155,7 @@ client.on('interactionCreate', async interaction => {
 
         setTimeout(async () => {
             await interaction.followUp({ content: 'K線圖加載中dayo', ephemeral: true });
-            await executechose(channel, interaction);
+            await executechose(false, interaction); // 傳遞 interaction 參數
         }, 1000);
     } else if (commandName === '調教列表') {
         await interaction.reply('目前有以下指令: \n/搜尋 可尋找需要幣種 \n/owo 呼叫按鈕區塊 \n/ping');
@@ -179,18 +179,21 @@ client.on('interactionCreate', async interaction => {
     if (interaction.customId === 'primary_1hour') {
         setTimeout(async () => {
             await interaction.editReply({ content: '1小時K線圖加載中dayo', ephemeral: true });
-            await executeHourlyTask(channel);
+            await executeHourlyTask(false, interaction);
         }, 1000);
     } else if (interaction.customId === 'primary_4hour') {
         setTimeout(async () => {
             await interaction.editReply({ content: '4小時K線圖加載中dayo', ephemeral: true });
-            await execute4HourlyTask(channel);
+            await execute4HourlyTask(false, interaction);
         }, 1000);
     } else if (interaction.customId === 'primary_highline') {
         setTimeout(async () => {
             await interaction.editReply({ content: '漲幅榜加載中dayo', ephemeral: true });
             await executeAndSendImage(channel);
         }, 10000);
+    } else if (interaction.customId === 'primary_nothing') {
+        await interaction.editReply({ content: '什麼都不做dayo', ephemeral: true });
+
     } else if (interaction.customId.startsWith('chose_')) {
         const timeRange = interaction.customId.split('_')[1];
             // 修改 userchose.txt 的 time 為用戶選擇的按鈕值
@@ -201,7 +204,7 @@ client.on('interactionCreate', async interaction => {
         
         setTimeout(async () => {
             await interaction.editReply({ content: `${timeRange} K線圖加載中dayo`, ephemeral: true });
-            await executechose(channel, interaction); // 傳遞 interaction 參數
+            await executechose(false, interaction); // 傳遞 interaction 參數
         }, 1000);
     }
 });
@@ -226,19 +229,33 @@ async function executeButtonTask(interaction) {
             .setLabel('4H')
             .setStyle(ButtonStyle.Primary);
         // 漲符榜
-        const highline = new ButtonBuilder()
-            .setCustomId('primary_highline')
-            .setLabel('漲幅榜')
-            .setStyle(ButtonStyle.Primary);
-
-        const row = new ActionRowBuilder().addComponents(onehour, fourhour, highline);
-
+        //const highline = new ButtonBuilder()
+            //.setCustomId('primary_highline')
+            //.setLabel('漲幅榜')
+            //.setStyle(ButtonStyle.Primary);
+        // 什麼都不做
+        const nothing = new ButtonBuilder()
+            .setCustomId('primary_nothing')
+            .setLabel('什麼都不做 重新把/owo')
+            .setStyle(ButtonStyle.Secondary);
+        
+        const row = new ActionRowBuilder().addComponents(onehour, fourhour);
+        const row2 = new ActionRowBuilder().addComponents(nothing);
         // 編輯回覆
         await interaction.editReply({
-            content: '提供所有的時區',
+            content: '提供所有的時區 5秒後需重啟dayo',
             ephemeral: true,
-            components: [row],
+            components: [row]
         });
+
+        // 按鈕間隔時間
+        setTimeout(async () => {
+            await interaction.editReply({
+                content: '按鈕要重啟dayo 有cd',
+                ephemeral: true,
+                components: [row2]
+            });
+        }, 5000); // 5秒後啟用按鈕
     } catch (error) {
         console.error(`exec error: ${error}`);
     }
@@ -258,7 +275,6 @@ async function executeAndSendImage(channel) {
         const messages = data.split('\n').filter(Boolean);
         for (const message of messages) {
             await channel.send(message);
-
             // 發送對應的 K 線圖
             const symbol = message.split(' ')[1].replace(':', '');
             const imagePath = path.join('C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\discord\\K highline', `${symbol}_Kline.png`);
@@ -277,82 +293,182 @@ async function executeAndSendImage(channel) {
 }
 
 // 每小時K線圖
-async function executeHourlyTask(channel) {
+async function executeHourlyTask(isSystemCall, interaction) {
     try {
         const { stdout } = await execPromise('python "C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\github\\pybit-5.7.0\\examples\\K linetest.py"');
         const { Ethstdout } = await execPromise('python "C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\github\\pybit-5.7.0\\examples\\EthKline.py"');
-        // 發送輸出結果到 Discord 頻道
-        await channel.send(`每小時任務輸出結果:`);
-        await channel.send("BTC1小時K線圖");
+        
+        const messages = {
+            hourlyTask: '每小時任務輸出結果:',
+            btcMessage: 'BTC1小時K線圖',
+            ethMessage: 'ETH1小時K線圖',
+            followUpMessage: '需要什麼再按一下或/調教列表dayo'
+        };
         const imagePath = path.join('C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\discord\\K line', `Klinetest.png`);
-        try {
-            await fs.promises.access(imagePath, fs.constants.F_OK);
-            await channel.send({ files: [imagePath] });
-            console.log(`圖片已發送: ${imagePath}`);
-        } catch (err) {
-            console.error(`圖片不存在: ${imagePath}`);
-        }
-        await channel.send("ETH1小時K線圖");
         const EthimagePath = path.join('C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\discord\\K line', `EthKlinetest.png`);
-        try {
-            await fs.promises.access(EthimagePath, fs.constants.F_OK);
-            await channel.send({ files: [EthimagePath] });
-            console.log(`圖片已發送: ${EthimagePath}`);
-        } catch (err) {
-            console.error(`圖片不存在: ${EthimagePath}`);
+
+        if (isSystemCall) {
+            // 系統呼叫，輸出到伺服器
+            const channel = client.channels.cache.get(channelId); // 替換為你的頻道 ID
+            if (channel) {
+                await channel.send(messages.hourlyTask);
+                await channel.send(messages.btcMessage);
+                try {
+                    await fs.promises.access(imagePath, fs.constants.F_OK);
+                    await channel.send({ files: [imagePath] });
+                    console.log(`圖片已發送: ${imagePath}`);
+                } catch (err) {
+                    console.error(`圖片不存在: ${imagePath}`);
+                }
+                await channel.send(messages.ethMessage);
+                try {
+                    await fs.promises.access(EthimagePath, fs.constants.F_OK);
+                    await channel.send({ files: [EthimagePath] });
+                    console.log(`圖片已發送: ${EthimagePath}`);
+                } catch (err) {
+                    console.error(`圖片不存在: ${EthimagePath}`);
+                }
+                await channel.send(messages.followUpMessage);
+            } else {
+                console.error('Channel not found');
+            }
+        } else if (interaction) {
+            // 用戶按鈕呼叫，回應用戶
+            const replyMessages = [
+                { content: messages.hourlyTask, ephemeral: true },
+                { content: messages.btcMessage, ephemeral: true },
+                { files: [imagePath], ephemeral: true },
+                { content: messages.ethMessage, ephemeral: true },
+                { files: [EthimagePath], ephemeral: true },
+                { content: messages.followUpMessage, ephemeral: true }
+            ];
+
+            const files = [];
+            try {
+                await fs.promises.access(imagePath, fs.constants.F_OK);
+                files.push(imagePath);
+                console.log(`圖片已發送: ${imagePath}`);
+            } catch (err) {
+                console.error(`圖片不存在: ${imagePath}`);
+            }
+            try {
+                await fs.promises.access(EthimagePath, fs.constants.F_OK);
+                files.push(EthimagePath);
+                console.log(`圖片已發送: ${EthimagePath}`);
+            } catch (err) {
+                console.error(`圖片不存在: ${EthimagePath}`);
+            }
+
+            await interaction.editReply({
+                content: `${messages.hourlyTask}\n${messages.btcMessage}\n${messages.ethMessage}\n${messages.followUpMessage}`,
+                files: files,
+                ephemeral: true
+            });
         }
-        await channel.send('需要什麼再按一下或/調教列表dayo');
     } catch (error) {
         console.error(`exec error: ${error}`);
     }
 }
 
 // 每4小時K線圖
-async function execute4HourlyTask(channel) {
+async function execute4HourlyTask(isSystemCall, interaction) {
     try {
         const { stdout } = await execPromise('python "C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\github\\pybit-5.7.0\\examples\\BTC4H.py"');
         const { Ethstdout } = await execPromise('python "C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\github\\pybit-5.7.0\\examples\\Eth4H.py"');
-        // 發送輸出結果到 Discord 頻道
-        await channel.send(`呼叫的4H圖呈上:dayo`);
-        await channel.send("BTC4小時K線圖dayo");
+        
+        const messages = {
+            followUpMessage: '需要什麼再按一下或/調教列表dayo',
+            fourHourlyTask: '呼叫的4H圖呈上:dayo',
+            btc4HMessage: 'BTC4小時K線圖',
+            eth4HMessage: 'ETH4小時K線圖'
+        };
+
         const imagePath = path.join('C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\discord\\K4line', `Klinetest.png`);
-        try {
-            await fs.promises.access(imagePath, fs.constants.F_OK);
-            await channel.send({ files: [imagePath] });
-            console.log(`圖片已發送: ${imagePath}`);
-        } catch (err) {
-            console.error(`圖片不存在: ${imagePath}`);
-        }
-        await channel.send("ETH4小時K線圖dayo");
         const EthimagePath = path.join('C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\discord\\K4line', `EthKlinetest.png`);
-        try {
-            await fs.promises.access(EthimagePath, fs.constants.F_OK);
-            await channel.send({ files: [EthimagePath] });
-            console.log(`圖片已發送: ${EthimagePath}`);
-        } catch (err) {
-            console.error(`圖片不存在: ${EthimagePath}`);
+
+        if (isSystemCall) {
+            // 系統呼叫，輸出到伺服器
+            const channel = client.channels.cache.get(channelId); // 替換為你的頻道 ID
+            if (channel) {
+                const files = [];
+                try {
+                    await fs.promises.access(imagePath, fs.constants.F_OK);
+                    files.push(imagePath);
+                    console.log(`圖片已發送: ${imagePath}`);
+                } catch (err) {
+                    console.error(`圖片不存在: ${imagePath}`);
+                }
+                try {
+                    await fs.promises.access(EthimagePath, fs.constants.F_OK);
+                    files.push(EthimagePath);
+                    console.log(`圖片已發送: ${EthimagePath}`);
+                } catch (err) {
+                    console.error(`圖片不存在: ${EthimagePath}`);
+                }
+
+                await channel.send({
+                    content: `${messages.fourHourlyTask}\n${messages.btc4HMessage}\n${messages.eth4HMessage}\n${messages.followUpMessage}`,
+                    files: files
+                });
+            } else {
+                console.error('Channel not found');
+            }
+        } else if (interaction) {
+            // 用戶按鈕呼叫，回應用戶
+            const replyMessages = [
+                { content: messages.fourHourlyTask, ephemeral: true },
+                { content: messages.btc4HMessage, ephemeral: true },
+                { files: [imagePath], ephemeral: true },
+                { content: messages.eth4HMessage, ephemeral: true },
+                { files: [EthimagePath], ephemeral: true },
+                { content: messages.followUpMessage, ephemeral: true }
+            ];
+
+            const files = [];
+            try {
+                await fs.promises.access(imagePath, fs.constants.F_OK);
+                files.push(imagePath);
+                console.log(`圖片已發送: ${imagePath}`);
+            } catch (err) {
+                console.error(`圖片不存在: ${imagePath}`);
+            }
+            try {
+                await fs.promises.access(EthimagePath, fs.constants.F_OK);
+                files.push(EthimagePath);
+                console.log(`圖片已發送: ${EthimagePath}`);
+            } catch (err) {
+                console.error(`圖片不存在: ${EthimagePath}`);
+            }
+
+            await interaction.editReply({
+                content: `${messages.fourHourlyTask}\n${messages.btc4HMessage}\n${messages.eth4HMessage}\n${messages.followUpMessage}`,
+                files: files,
+                ephemeral: true
+            });
         }
-        await channel.send('需要什麼再按一下或/調教列表dayo');
     } catch (error) {
         console.error(`exec error: ${error}`);
     }
 }
 
 // 選擇K線圖
-async function executechose(channel, interaction) {
+async function executechose(isSystemCall, interaction) {
     try {
         await execPromise('python "C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\github\\pybit-5.7.0\\examples\\choseKline.py"');
-        // 發送輸出結果到 Discord 頻道
-        await channel.send(`呼叫的指定圖呈上:dayo`);
+        
+        const messageContent = '呼叫的指定圖呈上:dayo';
         const imagePath = path.join('C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\discord\\user', `chose.png`);
+        const files = [];
+
         try {
             await fs.promises.access(imagePath, fs.constants.F_OK);
-            await channel.send({ files: [imagePath] });
+            files.push(imagePath);
             console.log(`圖片已發送: ${imagePath}`);
         } catch (err) {
             console.error(`圖片不存在: ${imagePath}`);
         }
-        await channel.send('需要什麼再按一下或/調教列表dayo');
+
+        const followUpMessage = '需要什麼再按一下或/調教列表dayo';
 
         // 1m
         const oneminute = new ButtonBuilder()
@@ -384,14 +500,46 @@ async function executechose(channel, interaction) {
             .setCustomId('chose_4h')
             .setLabel('4h')
             .setStyle(ButtonStyle.Primary);
+        // nothing
+        const nothing = new ButtonBuilder()
+            .setCustomId('chose_nothing')
+            .setLabel('什麼都不做 重新把/owo')
+            .setStyle(ButtonStyle.Secondary);
 
         const row1 = new ActionRowBuilder().addComponents(oneminute, fiveminute, fifteenminute);
-        const row2 = new ActionRowBuilder().addComponents(thirtyminute,onehour,fourhour);
-        await interaction.editReply({
-            content: '為指定的幣別提供額外的時區dayo',
-            ephemeral: true,
-            components: [row1, row2],
-        });
+        const row2 = new ActionRowBuilder().addComponents(thirtyminute, onehour, fourhour);
+        const row3 = new ActionRowBuilder().addComponents(nothing);
+        if (isSystemCall) {
+            // 系統呼叫，輸出到伺服器
+            const channel = client.channels.cache.get(channelId); // 替換為你的頻道 ID
+            if (channel) {
+                await channel.send({
+                    content: `${messageContent}\n${followUpMessage}`,
+                    files: files,
+                    components: [row1, row2]
+                });
+            } else {
+                console.error('Channel not found');
+            }
+        } else if (interaction) {
+            // 用戶按鈕呼叫，回應用戶
+            await interaction.editReply({
+                content: `${messageContent}\n${followUpMessage}`,'有5秒cd': true,
+                files: files,
+                ephemeral: true,
+                components: [row1, row2]
+            });
+            
+        }
+        setTimeout(async () => {
+            await interaction.editReply({
+                content: `${messageContent}\n${followUpMessage}`,'什麼都不做 重新把/owo': true,
+                files: files,
+                ephemeral: true,
+                components: [row3]
+            });
+        }, 5000); // 5秒後啟用按鈕
+    
     } catch (error) {
         console.error(`exec error: ${error}`);
     }

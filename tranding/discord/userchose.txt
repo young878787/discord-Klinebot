@@ -1,2 +1,2 @@
-symbol=ORDIUSDT 
-time=15m
+symbol=1000000PEIPEIUSDT 
+time=nothing
