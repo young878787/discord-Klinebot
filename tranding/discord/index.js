@@ -29,7 +29,7 @@ client.once(Events.ClientReady, async c => {
         await executeHourlyTask(true,null);
         channel.send('等下 還有24H漲幅榜dayo');
 
-        //await executeAndSendImage(channel)
+        await executeAndSendImage(channel)
 
         // 設置定時器每小時執行一次功能
         setInterval(async() => {
@@ -158,7 +158,7 @@ client.on('interactionCreate', async interaction => {
             await executechose(false, interaction); // 傳遞 interaction 參數
         }, 1000);
     } else if (commandName === '調教列表') {
-        await interaction.reply('目前有以下指令: \n/搜尋 可尋找需要幣種 \n/owo 呼叫按鈕區塊 \n/ping');
+        await interaction.reply({content:'目前有以下指令: \n/搜尋 可尋找需要幣種 \n/owo 呼叫按鈕區塊 \n/ping', ephemeral: true});   
     } else if (commandName === 'owo') {
         await executeButtonTask(interaction);
     } else if (commandName === 'ping') {
