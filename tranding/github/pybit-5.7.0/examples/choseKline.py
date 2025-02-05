@@ -33,7 +33,7 @@ def get_user_choice(filepath):
     return symbol, interval,times
 
 # 測試讀取 userchose.txt 文件
-user_choice_file = 'C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\discord\\userchose.txt'
+user_choice_file = 'C:\\Users\\Rushia is boingboing\\Downloads\\discord-Klinebot\\tranding\\discord\\userchose.txt'
 symbol, interval ,times= get_user_choice(user_choice_file)
 
 class BybitKlineWrapper:
@@ -93,7 +93,7 @@ class BybitKlineWrapper:
         # 將時間轉換為 matplotlib 可用的格式
         df['timestamp'] = mdates.date2num(df.index.to_pydatetime())
 
-        fig, ax = plt.subplots(figsize=(10, 5))
+        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 8), gridspec_kw={'height_ratios': [3, 1]})
 
         # 設置 K 線圖的寬度
         if interval == 1: width=0.0005
@@ -103,23 +103,29 @@ class BybitKlineWrapper:
         elif interval == 60: width=0.02
         elif interval == 240: width=0.1
         # 繪製 K 線圖，調整 width 參數以增加 K 線的寬度
-        candlestick_ohlc(ax, df[['timestamp', 'open', 'high', 'low', 'close']].values, width, colorup='g', colordown='r')
+        candlestick_ohlc(ax1, df[['timestamp', 'open', 'high', 'low', 'close']].values, width, colorup='g', colordown='r')
 
-        ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M'))
+        ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M'))
         plt.xticks(rotation=45)
-        plt.title(f"{symbol}/{times} Kline")
-        plt.xlabel('Time')
-        plt.ylabel('Price')
-        plt.grid()
+        ax1.set_title(f"{symbol} K Line Chart {times}")
+        ax1.set_xlabel('Time')
+        ax1.set_ylabel('Price')
+        ax1.grid()
+
+        # 繪製交易量柱狀圖
+        colors = ['g' if close >= open else 'r' for open, close in zip(df['open'], df['close'])]
+        ax2.bar(df['timestamp'], df['volume'], color=colors, width=width)
+        ax2.set_xlabel('Time')
+        ax2.set_ylabel('Volume')
         plt.tight_layout()
         
         # 添加浮水印
         plt.text(0.5, 0.5, f'{symbol}/{times}', fontsize=70, color='gray', alpha=0.25,
-                 ha='center', va='center', transform=ax.transAxes, rotation=0)
+                 ha='center', va='center', transform=ax1.transAxes, rotation=0)
 
 
         # 儲存 K 線圖到 K highline 資料夾
-        plt.savefig("C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\discord\\user\\chose.png")  # 保存為 PNG 檔案
+        plt.savefig("C:\\Users\\Rushia is boingboing\\Downloads\\discord-Klinebot\\tranding\\discord\\user\\chose.png")  # 保存為 PNG 檔案
         plt.close()  # 關閉圖表以釋放記憶體
         #plt.show()
 # 使用範例

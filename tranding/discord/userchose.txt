@@ -1,2 +1,2 @@
 symbol=1000000PEIPEIUSDT 
-time=nothing
+time=5m

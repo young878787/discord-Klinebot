@@ -73,26 +73,34 @@ class BybitKlineWrapper:
         # 將時間轉換為 matplotlib 可用的格式
         df['timestamp'] = mdates.date2num(df.index.to_pydatetime())
 
-        fig, ax = plt.subplots(figsize=(10, 5))
+        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 8), gridspec_kw={'height_ratios': [3, 1]})
 
         # 繪製 K 線圖，調整 width 參數以增加 K 線的寬度
-        candlestick_ohlc(ax, df[['timestamp', 'open', 'high', 'low', 'close']].values, width=0.02, colorup='g', colordown='r')
+        candlestick_ohlc(ax1, df[['timestamp', 'open', 'high', 'low', 'close']].values, width=0.1, colorup='g', colordown='r')
 
-        ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M'))
+        ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M'))
+        ax1.set_title('BTC K Line Chart 4H')
+        ax1.set_xlabel('Time')
+        ax1.set_ylabel('Price')
+        ax1.grid()
+
+        # 繪製交易量柱狀圖
+        colors = ['g' if close >= open else 'r' for open, close in zip(df['open'], df['close'])]
+        ax2.bar(df['timestamp'], df['volume'], color=colors, width=0.1)
+        ax2.set_xlabel('Time')
+        ax2.set_ylabel('Volume')
+        ax2.grid()
+
         plt.xticks(rotation=45)
-        plt.title('BTC K Line Chart 4H')
-        plt.xlabel('Time')
-        plt.ylabel('Price')
-        plt.grid()
         plt.tight_layout()
-        
+
         # 添加浮水印
         plt.text(0.5, 0.5, f'BTCUSDT/4H', fontsize=70, color='gray', alpha=0.25,
-                 ha='center', va='center', transform=ax.transAxes, rotation=0)
+                 ha='center', va='center', transform=ax1.transAxes, rotation=0)
 
 
         # 儲存 K 線圖到 K highline 資料夾
-        plt.savefig("C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\discord\\K4line\\Klinetest.png")  # 保存為 PNG 檔案
+        plt.savefig("C:\\Users\\Rushia is boingboing\\Downloads\\discord-Klinebot\\tranding\\discord\\K4Line\\Klinetest.png")  # 保存為 PNG 檔案
         plt.close()  # 關閉圖表以釋放記憶體
         #plt.show()
 # 使用範例
@@ -103,7 +111,7 @@ wrapper = BybitKlineWrapper(
 )
 
 # 獲取 BTCUSDT 的 K 線數據，20根 K 線，60分間隔
-wrapper.get_kline_data(symbol="BTCUSDT", interval="60", limit=100)
+wrapper.get_kline_data(symbol="BTCUSDT", interval="240", limit=100)
 
 
 

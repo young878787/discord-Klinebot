@@ -11,7 +11,7 @@ import logging
 import shutil
 
 # 設定日誌記錄，將日誌輸出到指定的檔案中
-log_file_path = "C:/Users/Rushia is boingboing/Desktop/tranding/github/pybit-5.7.0/examples/combined.log"
+log_file_path = "C:\\Users\\Rushia is boingboing\\Downloads\\discord-Klinebot\\tranding\\github\\pybit-5.7.0\\examples\\combined.log"
 logging.basicConfig(
     level=logging.ERROR,  # 設定日誌級別為 ERROR
     format='%(asctime)s - %(levelname)s - %(message)s',
@@ -115,7 +115,7 @@ class BybitKlineWrapper:
     def compare_price_changes(self):
         # 讀取 alltrade.json 文件中的所有交易對符號
         try:
-            with open('c:/Users/Rushia is boingboing/Desktop/tranding/github/pybit-5.7.0/examples/alltrade.json', 'r') as file:
+            with open('C:\\Users\\Rushia is boingboing\\Downloads\\discord-Klinebot\\tranding\\github\\pybit-5.7.0\\examples\\alltrade.json', 'r') as file:
                 symbols_data = json.load(file)
         except FileNotFoundError:
             logging.error("alltrade.json file not found.")
@@ -148,21 +148,27 @@ class BybitKlineWrapper:
         # 將時間轉換為 matplotlib 可用的格式
         df['timestamp'] = mdates.date2num(df.index.to_pydatetime())
 
-        fig, ax = plt.subplots(figsize=(10, 5))
+        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 5), gridspec_kw={'height_ratios': [3, 1]})
 
         # 繪製 K 線圖，調整 width 參數以增加 K 線的寬度
-        candlestick_ohlc(ax, df[['timestamp', 'open', 'high', 'low', 'close']].values, width=0.002, colorup='g', colordown='r')
+        candlestick_ohlc(ax1, df[['timestamp', 'open', 'high', 'low', 'close']].values, width=0.002, colorup='g', colordown='r')
 
-        ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M'))
+        ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M'))
         plt.xticks(rotation=45)
-        plt.title(f'K Line Chart for {symbol}/5m')
-        plt.xlabel('Time')
-        plt.ylabel('Price')
-        plt.grid()
+        ax1.set_title(f"{symbol} K Line Chart 5m")
+        ax1.set_xlabel('Time')
+        ax1.set_ylabel('Price')
+        ax1.grid()
+
+        # 繪製交易量柱狀圖
+        colors = ['g' if close >= open else 'r' for open, close in zip(df['open'], df['close'])]
+        ax2.bar(df['timestamp'], df['volume'], color=colors, width=0.002)
+        ax2.set_xlabel('Time')
+        ax2.set_ylabel('Volume')
         plt.tight_layout()
         
         plt.text(0.5, 0.5, f'{symbol}/5m', fontsize=70, color='gray', alpha=0.25,
-                 ha='center', va='center', transform=ax.transAxes, rotation=0)
+                 ha='center', va='center', transform=ax1.transAxes, rotation=0)
 
         # 儲存 K 線圖到 K highline 資料夾
         plt.savefig(f"{kline_dir}/{symbol}_Kline.png")  # 保存為 PNG 檔案
@@ -173,7 +179,7 @@ if __name__ == "__main__":
     fetcher = BybitTradeFetcher(api_key=BYBIT_API_KEY, api_secret=BYBIT_API_SECRET, testnet=TESTNET)
     symbols = fetcher.get_all_usdt_trading_pairs()
     if symbols:
-        fetcher.save_symbols_to_json(symbols, 'c:/Users/Rushia is boingboing/Desktop/tranding/github/pybit-5.7.0/examples/alltrade.json')
+        fetcher.save_symbols_to_json(symbols, 'C:\\Users\\Rushia is boingboing\\Downloads\\discord-Klinebot\\tranding\\github\\pybit-5.7.0\\examples\\alltrade.json')
 
     # 比較所有交易對的漲幅並輸出前10個漲幅最大的交易對
     wrapper = BybitKlineWrapper(api_key=BYBIT_API_KEY, api_secret=BYBIT_API_SECRET, testnet=TESTNET)
@@ -194,7 +200,7 @@ if __name__ == "__main__":
             except Exception as e:
                 logging.error(f'Failed to delete {file_path}. Reason: {e}')
 
-    output_file_path = "C:/Users/Rushia is boingboing/Desktop/tranding/github/pybit-5.7.0/examples/output.txt"
+    output_file_path = "C:\\Users\\Rushia is boingboing\\Downloads\\discord-Klinebot\\tranding\\github\\pybit-5.7.0\\examples\\output.txt"
     with open(output_file_path, 'w', encoding='utf-8') as f:
         for rank, (symbol, (change, open_price, close_price)) in enumerate(top_changes, start=1):
             message = f"{rank}. {symbol}: {change:.2f}% (Open: {open_price}, Close: {close_price})"
