@@ -73,12 +73,12 @@ class BybitKlineWrapper:
         # 將時間轉換為 matplotlib 可用的格式
         df['timestamp'] = mdates.date2num(df.index.to_pydatetime())
 
-        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 8), gridspec_kw={'height_ratios': [3, 1]})
+        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(15, 8), gridspec_kw={'height_ratios': [3, 1]})
 
         # 繪製 K 線圖，調整 width 參數以增加 K 線的寬度
         candlestick_ohlc(ax1, df[['timestamp', 'open', 'high', 'low', 'close']].values, width=0.02, colorup='g', colordown='r')
 
-        ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M'))
+        ax1.xaxis.set_major_formatter(mdates.DateFormatter('%m-%d %H:%M'))
         ax1.set_title('BTC K Line Chart 1H')
         ax1.set_xlabel('Time')
         ax1.set_ylabel('Price')

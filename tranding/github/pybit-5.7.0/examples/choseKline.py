@@ -93,7 +93,7 @@ class BybitKlineWrapper:
         # 將時間轉換為 matplotlib 可用的格式
         df['timestamp'] = mdates.date2num(df.index.to_pydatetime())
 
-        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 8), gridspec_kw={'height_ratios': [3, 1]})
+        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(15, 8), gridspec_kw={'height_ratios': [3, 1]})
 
         # 設置 K 線圖的寬度
         if interval == 1: width=0.0005

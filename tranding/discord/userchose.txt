@@ -1,2 +1,2 @@
-symbol=1000000PEIPEIUSDT 
-time=5m
+symbol=1000000CHEEMSUSDT 
+time=30m
