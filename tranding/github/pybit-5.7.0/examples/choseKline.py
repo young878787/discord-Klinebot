@@ -33,7 +33,7 @@ def get_user_choice(filepath):
     return symbol, interval,times
 
 # 測試讀取 userchose.txt 文件
-user_choice_file = 'C:\\Users\\Rushia is boingboing\\Downloads\\discord-Klinebot\\tranding\\discord\\userchose.txt'
+user_choice_file = 'C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\discord\\userchose.txt'
 symbol, interval ,times= get_user_choice(user_choice_file)
 
 class BybitKlineWrapper:
@@ -123,9 +123,8 @@ class BybitKlineWrapper:
         plt.text(0.5, 0.5, f'{symbol}/{times}', fontsize=70, color='gray', alpha=0.25,
                  ha='center', va='center', transform=ax1.transAxes, rotation=0)
 
-
         # 儲存 K 線圖到 K highline 資料夾
-        plt.savefig("C:\\Users\\Rushia is boingboing\\Downloads\\discord-Klinebot\\tranding\\discord\\user\\chose.png")  # 保存為 PNG 檔案
+        plt.savefig("C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\discord\\user\\chose.png")  # 保存為 PNG 檔案
         plt.close()  # 關閉圖表以釋放記憶體
         #plt.show()
 # 使用範例

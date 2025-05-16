@@ -148,27 +148,18 @@ class BybitKlineWrapper:
         # 將時間轉換為 matplotlib 可用的格式
         df['timestamp'] = mdates.date2num(df.index.to_pydatetime())
 
-        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 5), gridspec_kw={'height_ratios': [3, 1]})
+        fig, ax = plt.subplots(figsize=(10, 5))
 
         # 繪製 K 線圖，調整 width 參數以增加 K 線的寬度
-        candlestick_ohlc(ax1, df[['timestamp', 'open', 'high', 'low', 'close']].values, width=0.002, colorup='g', colordown='r')
+        candlestick_ohlc(ax, df[['timestamp', 'open', 'high', 'low', 'close']].values, width=0.002, colorup='g', colordown='r')
 
-        ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M'))
+        ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M'))
         plt.xticks(rotation=45)
-        ax1.set_title(f"{symbol} K Line Chart 5m")
-        ax1.set_xlabel('Time')
-        ax1.set_ylabel('Price')
-        ax1.grid()
-
-        # 繪製交易量柱狀圖
-        colors = ['g' if close >= open else 'r' for open, close in zip(df['open'], df['close'])]
-        ax2.bar(df['timestamp'], df['volume'], color=colors, width=0.002)
-        ax2.set_xlabel('Time')
-        ax2.set_ylabel('Volume')
+        plt.title(f'K Line Chart for {symbol}')
+        plt.xlabel('Time')
+        plt.ylabel('Price')
+        plt.grid()
         plt.tight_layout()
-        
-        plt.text(0.5, 0.5, f'{symbol}/5m', fontsize=70, color='gray', alpha=0.25,
-                 ha='center', va='center', transform=ax1.transAxes, rotation=0)
 
         # 儲存 K 線圖到 K highline 資料夾
         plt.savefig(f"{kline_dir}/{symbol}_Kline.png")  # 保存為 PNG 檔案
@@ -200,12 +191,17 @@ if __name__ == "__main__":
             except Exception as e:
                 logging.error(f'Failed to delete {file_path}. Reason: {e}')
 
+    output_messages = []
+    for rank, (symbol, (change, open_price, close_price)) in enumerate(top_changes, start=1):
+        message = f"{rank}. {symbol}: {change:.2f}% (Open: {open_price}, Close: {close_price})"
+        print(message)
+        output_messages.append(message)
+        df = wrapper.get_kline_data(symbol=symbol, interval="5", limit=200)
+        if df is not None:
+            wrapper.plot_kline(df, symbol)
+
+    # 將輸出結果保存到文件
     output_file_path = "C:/Users/Rushia is boingboing/Desktop/tranding/github/pybit-5.7.0/examples/output.txt"
     with open(output_file_path, 'w', encoding='utf-8') as f:
-        for rank, (symbol, (change, open_price, close_price)) in enumerate(top_changes, start=1):
-            message = f"{rank}. {symbol}: {change:.2f}% (Open: {open_price}, Close: {close_price})"
-            print(message)
+        for message in output_messages:
             f.write(message + "\n")
-            df = wrapper.get_kline_data(symbol=symbol, interval="5", limit=200)
-            if df is not None:
-                wrapper.plot_kline(df, symbol)

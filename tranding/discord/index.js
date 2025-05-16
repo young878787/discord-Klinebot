@@ -1,10 +1,9 @@
-const { exec } = require('child_process');
+const { exec, spawn} = require('child_process');
 const path = require('path');
 const fs = require('fs');
 const { promisify } = require('util');
 const { Client, GatewayIntentBits, REST, Routes, SlashCommandBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder, Events } = require('discord.js');
 const schedule = require('node-schedule');
-const { channel } = require('diagnostics_channel');
 require('dotenv').config({ path: './token and something.env' });
 
 // 從環境變數中讀取值
@@ -23,14 +22,30 @@ client.once(Events.ClientReady, async c => {
     
     const channel = client.channels.cache.get(channelId); // 替換為你的頻道 ID
     if (channel) {
+
         // 發送開機完成消息
         await channel.send('老婆醬準備上班dayo！');
 
+        // 啟動 coin-track.py
+        const pythonProcess = spawn('python', ['C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\github\\pybit-5.7.0\\examples\\coin-track.py']);
+
+        pythonProcess.stdout.on('data', (data) => {
+            console.log(`coin-track.py stdout: ${data}`);
+        });
+
+        pythonProcess.stderr.on('data', (data) => {
+            console.error(`coin-track.py stderr: ${data}`);
+        });
+
+        pythonProcess.on('close', (code) => {
+            console.log(`coin-track.py exited with code ${code}`);
+        });
+
         // 立即執行一次功能
         await executeHourlyTask(true,null);
-
         //channel.send('等下 還有24H漲幅榜dayo');
-        // await executeAndSendImage(channel)
+
+        //await executeAndSendImage(channel)
 
         // 設置定時器每小時執行一次功能
         setInterval(async() => {
@@ -118,7 +133,7 @@ client.on('interactionCreate', async interaction => {
     const focusedOption = interaction.options.getFocused(true);
 
     if (focusedOption.name === 'coin') {
-        const alltradePath = 'C:\\Users\\Rushia is boingboing\\Downloads\\discord-Klinebot\\tranding\\github\\pybit-5.7.0\\examples\\alltrade.json';
+        const alltradePath = 'C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\github\\pybit-5.7.0\\examples\\alltrade.json';
         const alltrade = JSON.parse(fs.readFileSync(alltradePath, 'utf-8'));
 
         const choices = alltrade.map(trade => trade.Symbol);
@@ -210,9 +225,9 @@ client.on('interactionCreate', async interaction => {
         }, 1000);
     }
 });
-
 // Log in to Discord with your client's token
 client.login(token);
+
 
 // 按鈕區塊
 async function executeButtonTask(isSystemCall, interaction) {
@@ -295,10 +310,10 @@ async function executeButtonTask(isSystemCall, interaction) {
 async function executeAndSendImage(channel) {
     try {
         channel.send('送上24H漲幅榜dayo');
-        await execPromise('python "C:\\Users\\Rushia is boingboing\\Downloads\\discord-Klinebot\\tranding\\github\\pybit-5.7.0\\examples\\allhightrade.py"');
+        await execPromise('python "C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\github\\pybit-5.7.0\\examples\\allhightrade.py"');
 
         // 讀取輸出結果文件
-        const outputFilePath = 'C:\\Users\\Rushia is boingboing\\Downloads\\discord-Klinebot\\tranding\\github\\pybit-5.7.0\\examples\\output.txt';
+        const outputFilePath = 'C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\github\\pybit-5.7.0\\examples\\output.txt';
         const data = await fs.promises.readFile(outputFilePath, 'utf-8');
 
         // 發送輸出結果到 Discord 頻道
@@ -307,7 +322,7 @@ async function executeAndSendImage(channel) {
             await channel.send(message);
             // 發送對應的 K 線圖
             const symbol = message.split(' ')[1].replace(':', '');
-            const imagePath = path.join('C:\\Users\\Rushia is boingboing\\Downloads\\discord-Klinebot\\tranding\\discord\\K highline', `${symbol}_Kline.png`);
+            const imagePath = path.join('C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\discord\\K highline', `${symbol}_Kline.png`);
             try {
                 await fs.promises.access(imagePath, fs.constants.F_OK);
                 await channel.send({ files: [imagePath] });
@@ -325,17 +340,19 @@ async function executeAndSendImage(channel) {
 // 每小時K線圖
 async function executeHourlyTask(isSystemCall, interaction) {
     try {
-        const { stdout } = await execPromise('python "C:\\Users\\Rushia is boingboing\\Downloads\\discord-Klinebot\\tranding\\github\\pybit-5.7.0\\examples\\K linetest.py"');
-        const { Ethstdout } = await execPromise('python "C:\\Users\\Rushia is boingboing\\Downloads\\discord-Klinebot\\tranding\\github\\pybit-5.7.0\\examples\\EthKline.py"');
-        
+        const { stdout } = await execPromise('python "C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\github\\pybit-5.7.0\\examples\\K linetest.py"');
+        const { Ethstdout } = await execPromise('python "C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\github\\pybit-5.7.0\\examples\\EthKline.py"');
+
         const messages = {
             hourlyTask: '每小時任務輸出結果:',
             btcMessage: 'BTC1小時K線圖',
             ethMessage: 'ETH1小時K線圖',
             followUpMessage: '需要什麼再按一下或/調教列表dayo'
         };
-        const imagePath = path.join('C:\\Users\\Rushia is boingboing\\Downloads\\discord-Klinebot\\tranding\\discord\\K line', `Klinetest.png`);
-        const EthimagePath = path.join('C:\\Users\\Rushia is boingboing\\Downloads\\discord-Klinebot\\tranding\\discord\\K line', `EthKlinetest.png`);
+
+        const imagePath = path.join('C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\discord\\K line', `Klinetest.png`);
+        const EthimagePath = path.join('C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\discord\\K line', `EthKlinetest.png`);
+        const coinTrackPath = path.join('C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\discord\\coin-track', 'coin-track.png');
 
         if (isSystemCall) {
             // 系統呼叫，輸出到伺服器
@@ -358,20 +375,19 @@ async function executeHourlyTask(isSystemCall, interaction) {
                 } catch (err) {
                     console.error(`圖片不存在: ${EthimagePath}`);
                 }
+                // 發送 coin-track.png 檔案
+                try {
+                    await fs.promises.access(coinTrackPath, fs.constants.F_OK);
+                    await channel.send({ content: '持倉變化總覽', files: [coinTrackPath] });
+                    console.log(`圖片已發送: ${coinTrackPath}`);
+                } catch (err) {
+                    console.error(`圖片不存在: ${coinTrackPath}`);
+                }
             } else {
                 console.error('Channel not found');
             }
         } else if (interaction) {
             // 用戶按鈕呼叫，回應用戶
-            const replyMessages = [
-                { content: messages.hourlyTask, ephemeral: true },
-                { content: messages.btcMessage, ephemeral: true },
-                { files: [imagePath], ephemeral: true },
-                { content: messages.ethMessage, ephemeral: true },
-                { files: [EthimagePath], ephemeral: true },
-                { content: messages.followUpMessage, ephemeral: true }
-            ];
-
             const files = [];
             try {
                 await fs.promises.access(imagePath, fs.constants.F_OK);
@@ -387,6 +403,13 @@ async function executeHourlyTask(isSystemCall, interaction) {
             } catch (err) {
                 console.error(`圖片不存在: ${EthimagePath}`);
             }
+            try {
+                await fs.promises.access(coinTrackPath, fs.constants.F_OK);
+                files.push(coinTrackPath);
+                console.log(`檔案已發送: ${coinTrackPath}`);
+            } catch (err) {
+                console.error(`檔案不存在: ${coinTrackPath}`);
+            }
 
             await interaction.editReply({
                 content: `${messages.hourlyTask}\n${messages.btcMessage}\n${messages.ethMessage}\n`,
@@ -400,16 +423,15 @@ async function executeHourlyTask(isSystemCall, interaction) {
     }
 }
 
-// 每大盤區間K線圖
 async function executebigchose(interaction) {
     try {
-        const { stdout } = await execPromise('python "C:\\Users\\Rushia is boingboing\\Downloads\\discord-Klinebot\\tranding\\github\\pybit-5.7.0\\examples\\mainchose.py"');
+        const { stdout } = await execPromise('python "C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\github\\pybit-5.7.0\\examples\\mainchose.py"');
         const messages = {
             hourlyTask: '呼叫的主流盤結果:dayo',
             followUpMessage: '需要什麼再按一下或/調教列表dayo'
         };
-        const imagePath1 = path.join('C:\\Users\\Rushia is boingboing\\Downloads\\discord-Klinebot\\tranding\\discord\\K line', `BTCUSDT.png`);
-        const imagePath2 = path.join('C:\\Users\\Rushia is boingboing\\Downloads\\discord-Klinebot\\tranding\\discord\\K line', `ETHUSDT.png`);
+        const imagePath1 = path.join('C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\discord\\K line', `BTCUSDT.png`);
+        const imagePath2 = path.join('C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\discord\\K line', `ETHUSDT.png`);
         // 用戶按鈕呼叫，回應用戶
         const replyMessages = [
             { content: messages.hourlyTask, ephemeral: true },
@@ -441,10 +463,10 @@ async function executebigchose(interaction) {
 // 選擇K線圖
 async function executechose(isSystemCall, interaction) {
     try {
-        await execPromise('python "C:\\Users\\Rushia is boingboing\\Downloads\\discord-Klinebot\\tranding\\github\\pybit-5.7.0\\examples\\choseKline.py"');
+        await execPromise('python "C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\github\\pybit-5.7.0\\examples\\choseKline.py"');
         
         const messageContent = '呼叫的指定圖呈上:dayo';
-        const imagePath = path.join('C:\\Users\\Rushia is boingboing\\Downloads\\discord-Klinebot\\tranding\\discord\\user', `chose.png`);
+        const imagePath = path.join('C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\discord\\user', `chose.png`);
         const files = [];
 
         try {

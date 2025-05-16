@@ -24,7 +24,7 @@ class BybitKlineWrapper:
             testnet=testnet,
         )
 
-    def get_kline_data(self, symbol: str = "BTCUSDT", interval: str = "D", limit: int = 20, timestamp: int = None):
+    def get_kline_data(self, symbol: str = "BTCUSDT", interval: str = "60", limit: int = 20, timestamp: int = None):
         if timestamp is None:
             timestamp = int(time.time() * 1000)
 
@@ -78,7 +78,7 @@ class BybitKlineWrapper:
         # 繪製 K 線圖，調整 width 參數以增加 K 線的寬度
         candlestick_ohlc(ax1, df[['timestamp', 'open', 'high', 'low', 'close']].values, width=0.02, colorup='g', colordown='r')
 
-        ax1.xaxis.set_major_formatter(mdates.DateFormatter('%m-%d %H:%M'))
+        ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M'))
         ax1.set_title('BTC K Line Chart 1H')
         ax1.set_xlabel('Time')
         ax1.set_ylabel('Price')
@@ -100,7 +100,7 @@ class BybitKlineWrapper:
 
 
         # 儲存 K 線圖到 K highline 資料夾
-        plt.savefig("C:\\Users\\Rushia is boingboing\\Downloads\\discord-Klinebot\\tranding\\discord\\K line\\Klinetest.png")  # 保存為 PNG 檔案
+        plt.savefig("C:\\Users\\Rushia is boingboing\\Desktop\\tranding\\discord\\K line\\Klinetest.png")  # 保存為 PNG 檔案
         plt.close()  # 關閉圖表以釋放記憶體
         #plt.show()
 # 使用範例
